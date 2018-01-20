@@ -16,6 +16,7 @@ AMonitorModule("UserModule"), _username(getlogin()), _uid(getuid())
 {
 	int ngroups = 100;
 	gid_t groups[10];
+	char hostName[1024];
 
 	getgrouplist(this->_username.c_str(), 0, groups, &ngroups);
 	for (int i = 0 ; i < ngroups ; i++) {
@@ -27,6 +28,8 @@ AMonitorModule("UserModule"), _username(getlogin()), _uid(getuid())
 	auto pw = getpwuid(static_cast<__uid_t>(this->_uid));
 	this->_homePath = std::string(pw->pw_dir);
 	this->_defaultShell = std::string(pw->pw_shell);
+	gethostname(hostName, 1023);
+	this->_hostName = std::string(hostName);
 }
 
 UserModule::~UserModule()
@@ -66,4 +69,9 @@ const std::string &UserModule::getDefaultShell() const
 int UserModule::getSid() const
 {
 	return _sid;
+}
+
+const std::string &UserModule::getHostName() const
+{
+	return _hostName;
 }

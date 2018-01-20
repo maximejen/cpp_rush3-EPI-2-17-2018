@@ -23,6 +23,7 @@ public:
 	const std::vector<std::string> &getGroupNames() const;
 	const std::vector<gid_t> &getGroupGID() const;
 	int getSid() const;
+	const std::string &getHostName() const;
 
 private:
 	std::string _username;
@@ -32,6 +33,7 @@ private:
 	int _sid;
 	std::string _homePath;
 	std::string _defaultShell;
+	std::string _hostName;
 };
 
 
