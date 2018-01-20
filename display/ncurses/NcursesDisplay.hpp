@@ -26,6 +26,7 @@ public:
 	bool refreshRender();
 	bool teardown();
 	bool clearRender();
+	WINDOW *getWindow() const;
 private:
 	WINDOW *_mainwin;
 	std::vector<AMonitorModule *> _modules;

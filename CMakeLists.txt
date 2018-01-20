@@ -15,6 +15,7 @@ set(sources
         modules/PC/PCModule.cpp
         modules/PC/PCModule.hpp
         display/ncurses/NcursesDisplay.cpp
+        display/ncurses/NcursesDisplay.hpp display/ncurses/tool/NcursesTool.cpp display/ncurses/tool/NcursesTool.hpp
         display/ncurses/NcursesDisplay.hpp
         display/gtk/GTKDisplay.cpp
         display/gtk/GTKDisplay.hpp)

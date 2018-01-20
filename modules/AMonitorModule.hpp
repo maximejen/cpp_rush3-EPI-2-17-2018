@@ -15,11 +15,24 @@
 class GTKDisplay;
 class NcursesDisplay;
 
+class Vec {
+public:
+	Vec(int x, int y);
+	int getX() const;
+	int getY() const;
+
+private:
+	int x;
+	int y;
+};
+
 class Box {
 public:
 	Box(int x, int y, int width, int heigth);
 	int getX() const;
 	int getY() const;
+	int getAbsoluteW() const;
+	int getAbsoluteH() const;
 	int getWidth() const;
 	int getHeigth() const;
 private:

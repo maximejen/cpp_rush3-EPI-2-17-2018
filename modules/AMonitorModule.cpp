@@ -79,3 +79,27 @@ int Box::getHeigth() const
 {
 	return heigth;
 }
+
+int Box::getAbsoluteW() const
+{
+	return x + width;
+}
+
+int Box::getAbsoluteH() const
+{
+	return y + heigth;
+}
+
+int Vec::getX() const
+{
+	return x;
+}
+
+int Vec::getY() const
+{
+	return y;
+}
+
+Vec::Vec(int x, int y) : x(x), y(y)
+{
+}
