@@ -14,6 +14,21 @@
 TimeModule::TimeModule(int x, int y, int w, int h)
     : AMonitorModule("TimeModule", x, y, w, h)
 {
+        _frame = gtk_frame_new("Time Module");
+        gtk_widget_set_size_request(GTK_WIDGET(_frame), getBox().getWidth(),
+                                    getBox().getHeigth());
+        _isFixed = false;
+        _fixed = gtk_fixed_new();
+        gtk_container_add(GTK_CONTAINER(_frame), _fixed);
+        _str = "Uptime: <span size=\"x-large\"><b>";
+        _str += getUpTime().c_str();
+        _str += "</b></span>\nSince: <span size=\"x-large\"><b>";
+        _str += getDate().c_str();
+        _str += "</b></span>";
+        _label = gtk_label_new(_str.c_str());
+        gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
+        gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
+        gtk_fixed_put(GTK_FIXED(_fixed), _label, 20, 5);
 }
 
 std::string TimeModule::getUpTime() const
@@ -39,33 +54,39 @@ std::string TimeModule::getDate() const
         return std::ctime(&time);
 }
 
+bool TimeModule::getInfos()
+{
+        _str = "Uptime: <span size=\"x-large\"><b>";
+        _str += getUpTime().c_str();
+        _str += "</b></span>\nSince: <span size=\"x-large\"><b>";
+        _str += getDate().c_str();
+        _str += "</b></span>";
+	return true;
+}
+
 bool TimeModule::render(GTKDisplay &display) const
 {
-        auto frame = gtk_frame_new("TimeModule");
-        gtk_widget_set_size_request(GTK_WIDGET(frame), getBox().getWidth(),
-                                    getBox().getHeigth());
-        gtk_fixed_put(GTK_FIXED(display._fixed), frame, getBox().getX(),
-                      getBox().getY());
-        auto fixed = gtk_fixed_new();
-        gtk_container_add(GTK_CONTAINER(frame), fixed);
-        auto label = gtk_label_new(getUpTime().c_str());
-        // int w;
-        // int h;
-        // gtk_widget_get_size_request(GTK_WIDGET(label), &w, &h);
-        // w = (getBox().getWidth() / 2) - (w / 2);
-        // h = (getBox().getHeigth() / 2) - (h / 2);
-        gtk_fixed_put(GTK_FIXED(fixed), label, 20, 20);
+        if (display.isIn(this) == false) {
+		std::cout << "Added !" << std::endl;
+                display.addToDisplay(this, _frame, getBox().getX(),
+                                     getBox().getY());
+	}
+        gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
+        return true;
 }
 
 bool TimeModule::render(NcursesDisplay &display) const
 {
+        (void)display;
         return false;
 }
 
 void TimeModule::clear(NcursesDisplay &display) const
 {
+        (void)display;
 }
 
 void TimeModule::clear(GTKDisplay &display) const
 {
+        (void)display;
 }

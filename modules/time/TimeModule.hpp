@@ -21,9 +21,15 @@ class TimeModule : public AMonitorModule {
         bool render(GTKDisplay &display) const override;
         void clear(NcursesDisplay &display) const override;
         void clear(GTKDisplay &display) const override;
+	bool getInfos() override;
 
       private:
         const std::string uptimeFile = "/proc/uptime";
+	GtkWidget *_frame;
+	GtkWidget *_fixed;
+	GtkWidget *_label;
+	std::string _str;
+	bool _isFixed;
 };
 
 #endif /* !CPP_RUSH3_TIMEMODULE_HPP */

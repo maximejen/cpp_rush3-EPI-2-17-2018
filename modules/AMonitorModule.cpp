@@ -20,6 +20,10 @@ AMonitorModule::AMonitorModule(const std::string &type, const Box &box)
 
 }
 
+AMonitorModule::~AMonitorModule()
+{
+}
+
 const std::string &AMonitorModule::getType() const
 {
 	return _type;
@@ -27,11 +31,13 @@ const std::string &AMonitorModule::getType() const
 
 bool AMonitorModule::render(GTKDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 
 bool AMonitorModule::render(NcursesDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 
@@ -55,51 +61,51 @@ const Box &AMonitorModule::getBox() const
 	return _box;
 }
 
-Box::Box(int x, int y, int width, int heigth)
+Box::Box(size_t x, size_t y, size_t width, size_t heigth)
 : x(x), y(y), width(width), heigth(heigth)
 {
 }
 
-int Box::getX() const
+size_t Box::getX() const
 {
 	return x;
 }
 
-int Box::getY() const
+size_t Box::getY() const
 {
 	return y;
 }
 
-int Box::getWidth() const
+size_t Box::getWidth() const
 {
 	return width;
 }
 
-int Box::getHeigth() const
+size_t Box::getHeigth() const
 {
 	return heigth;
 }
 
-int Box::getAbsoluteW() const
+size_t Box::getAbsoluteW() const
 {
 	return x + width;
 }
 
-int Box::getAbsoluteH() const
+size_t Box::getAbsoluteH() const
 {
 	return y + heigth;
 }
 
-int Vec::getX() const
+size_t Vec::getX() const
 {
 	return x;
 }
 
-int Vec::getY() const
+size_t Vec::getY() const
 {
 	return y;
 }
 
-Vec::Vec(int x, int y) : x(x), y(y)
+Vec::Vec(size_t x, size_t y) : x(x), y(y)
 {
 }

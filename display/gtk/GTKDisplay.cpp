@@ -11,7 +11,7 @@
 
 GTKDisplay::GTKDisplay()
 {
-        _modules.push_back(new TimeModule(20, 20, 300, 300));
+        _modules.push_back(new TimeModule(20, 20, 300, 50));
 }
 
 GTKDisplay::~GTKDisplay()
@@ -30,24 +30,45 @@ bool GTKDisplay::setup()
 
         _fixed = gtk_fixed_new();
         gtk_container_add(GTK_CONTAINER(_window), _fixed);
+        gtk_widget_show_all(_window);
+        gtk_main_iteration_do(FALSE);
+        return true;
 }
 
 bool GTKDisplay::render()
 {
         for (auto &e : _modules)
-                e->render(*this);
-	gtk_widget_show_all(_window);
-	gtk_main();
+                if (e->getInfos())
+                        e->render(*this);
+        gtk_widget_show_all(_window);
+        gtk_main_iteration_do(FALSE);
+        return true;
 }
 
 bool GTKDisplay::clearRender()
 {
+        return true;
 }
 
 bool GTKDisplay::refreshRender()
 {
+        return true;
 }
 
 bool GTKDisplay::teardown()
 {
+        return true;
+}
+
+bool GTKDisplay::isIn(const AMonitorModule *module) const
+{
+        return _map.find(module) != _map.end();
+}
+
+bool GTKDisplay::addToDisplay(const AMonitorModule *module, GtkWidget *frame,
+                              size_t x, size_t y)
+{
+        gtk_fixed_put(GTK_FIXED(_fixed), frame, x, y);
+        _map[module] = true;
+        return true;
 }

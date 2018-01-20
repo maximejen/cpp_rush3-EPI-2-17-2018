@@ -20,12 +20,16 @@ PCModule::PCModule(const Box &box)
 
 bool PCModule::render(GTKDisplay &display) const
 {
+	(void)display;
 	std::cout << "GTK" << std::endl;
+	return false;
 }
 
 bool PCModule::render(NcursesDisplay &display) const
 {
+	(void)display;
 	std::cout << "Ncurses" << std::endl;
+	return false;
 }
 
 void PCModule::clear(NcursesDisplay &display) const
