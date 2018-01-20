@@ -49,17 +49,17 @@ bool TimeModule::render(GTKDisplay &display) const
         auto fixed = gtk_fixed_new();
         gtk_container_add(GTK_CONTAINER(frame), fixed);
         auto label = gtk_label_new(getUpTime().c_str());
-        int w;
-        int h;
-        gtk_widget_get_size_request(GTK_WIDGET(label), &w, &h);
-        w = (getBox().getWidth() / 2) - (w / 2);
-        h = (getBox().getHeigth() / 2) - (h / 2);
-        gtk_fixed_put(GTK_FIXED(fixed), label, w, h);
+        // int w;
+        // int h;
+        // gtk_widget_get_size_request(GTK_WIDGET(label), &w, &h);
+        // w = (getBox().getWidth() / 2) - (w / 2);
+        // h = (getBox().getHeigth() / 2) - (h / 2);
+        gtk_fixed_put(GTK_FIXED(fixed), label, 20, 20);
 }
 
 bool TimeModule::render(NcursesDisplay &display) const
 {
-	return false;
+        return false;
 }
 
 void TimeModule::clear(NcursesDisplay &display) const

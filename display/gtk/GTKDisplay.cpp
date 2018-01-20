@@ -37,6 +37,7 @@ bool GTKDisplay::render()
         for (auto &e : _modules)
                 e->render(*this);
 	gtk_widget_show_all(_window);
+	gtk_main();
 }
 
 bool GTKDisplay::clearRender()
