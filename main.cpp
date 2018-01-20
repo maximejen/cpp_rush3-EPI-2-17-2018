@@ -5,10 +5,12 @@
 ** main.cpp
 */
 
-#include "IMonitorDisplay.hpp"
-#include "IMonitorDisplay.hpp"
+#include "ncurses/NcursesDisplay.hpp"
 
 int main()
 {
-
+	NcursesDisplay display;
+	display.setup();
+	display.render();
+	display.teardown();
 }

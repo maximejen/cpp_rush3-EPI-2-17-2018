@@ -8,6 +8,7 @@
 #ifndef CPP_RUSH3_NCURSESDISPLAY_HPP
 	#define CPP_RUSH3_NCURSESDISPLAY_HPP
 
+	#include <ncurses.h>
 	#include "IMonitorDisplay.hpp"
 
 class NcursesDisplay : IMonitorDisplay {
@@ -15,8 +16,10 @@ public:
 	NcursesDisplay();
 	bool setup() override;
 	bool render() override;
-	bool clear() override;
+	bool refresh() override;
 	bool teardown() override;
+private:
+	WINDOW *_mainwin;
 };
 
 

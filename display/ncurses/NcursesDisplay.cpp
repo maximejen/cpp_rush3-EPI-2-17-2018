@@ -13,21 +13,29 @@ NcursesDisplay::NcursesDisplay()
 
 bool NcursesDisplay::setup()
 {
-
+	_mainwin = initscr();
+	noecho();
+	curs_set(0);
 	return false;
 }
 
 bool NcursesDisplay::render()
 {
+	refresh();
+	getch();
 	return false;
 }
 
-bool NcursesDisplay::clear()
+bool NcursesDisplay::refresh()
 {
+	refresh();
 	return false;
 }
 
 bool NcursesDisplay::teardown()
 {
+	delwin(_mainwin);
+	endwin();
+	refresh();
 	return false;
 }

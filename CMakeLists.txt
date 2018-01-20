@@ -13,10 +13,12 @@ set(sources
         modules/time/TimeModule.cpp
         modules/time/TimeModule.hpp
         modules/PC/PCModule.cpp
-        modules/PC/PCModule.hpp display/ncurses/NcursesDisplay.cpp display/ncurses/NcursesDisplay.hpp)
+        modules/PC/PCModule.hpp
+        display/ncurses/NcursesDisplay.cpp
+        display/ncurses/NcursesDisplay.hpp)
 
 add_executable(cpp_rush3 ${sources})
 
-add_library(ncurses SHARED cpp_rush3)
+target_link_libraries(cpp_rush3 ncurses)
 
 target_include_directories(cpp_rush3 PRIVATE modules display)
