@@ -4,11 +4,13 @@
 ** File description:
 ** NcursesDisplay.cpp
 */
-
+#include <iostream>
+#include "PC/PCModule.hpp"
 #include "NcursesDisplay.hpp"
 
-NcursesDisplay::NcursesDisplay()
+NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
 {
+	_modules.push_back(new PCModule(0, 0, 0, 0));
 }
 
 bool NcursesDisplay::setup()
@@ -21,15 +23,20 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render()
 {
+	clearRender();
+	for (auto &n : _modules) {
+		if (!n->getInfos())
+			continue;
+		n->render(*this);
+	}
 	refreshRender();
-	getch();
-	return false;
+	return true;
 }
 
 bool NcursesDisplay::refreshRender()
 {
 	refresh();
-	return false;
+	return true;
 }
 
 bool NcursesDisplay::teardown()
@@ -37,5 +44,18 @@ bool NcursesDisplay::teardown()
 	delwin(_mainwin);
 	endwin();
 	refresh();
-	return false;
+	return true;
+}
+
+bool NcursesDisplay::clearRender()
+{
+	clear();
+	return true;
+}
+
+NcursesDisplay::~NcursesDisplay()
+{
+	for (auto &n : _modules) {
+		delete n;
+	}
 }

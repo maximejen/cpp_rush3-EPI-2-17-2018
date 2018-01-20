@@ -5,11 +5,19 @@
 ** AMonitorModule.cpp
 */
 
+#include <iostream>
 #include "AMonitorModule.hpp"
 
-AMonitorModule::AMonitorModule(const std::string &_type)
-: _type(_type)
+AMonitorModule::AMonitorModule(const std::string &type, int x,
+int y, int w, int h): _type(type), _box(x, y, w, h)
 {
+
+}
+
+AMonitorModule::AMonitorModule(const std::string &type, const Box &box)
+: _type(type), _box(box)
+{
+
 }
 
 const std::string &AMonitorModule::getType() const
@@ -19,7 +27,6 @@ const std::string &AMonitorModule::getType() const
 
 bool AMonitorModule::render(IMonitorDisplay &display) const
 {
-	(void)(display);
 	return false;
 }
 
@@ -33,27 +40,32 @@ bool AMonitorModule::getInfos()
 	return false;
 }
 
-box::box(int x, int y, int width, int heigth)
+const Box &AMonitorModule::getBox() const
+{
+	return _box;
+}
+
+Box::Box(int x, int y, int width, int heigth)
 : x(x), y(y), width(width), heigth(heigth)
 {
 }
 
-int box::getX() const
+int Box::getX() const
 {
 	return x;
 }
 
-int box::getY() const
+int Box::getY() const
 {
 	return y;
 }
 
-int box::getWidth() const
+int Box::getWidth() const
 {
 	return width;
 }
 
-int box::getHeigth() const
+int Box::getHeigth() const
 {
 	return heigth;
 }

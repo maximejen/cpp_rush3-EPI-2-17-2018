@@ -10,9 +10,9 @@
 
 	#include "IMonitorModule.hpp"
 
-class box {
+class Box {
 public:
-	box(int x, int y, int width, int heigth);
+	Box(int x, int y, int width, int heigth);
 	int getX() const;
 	int getY() const;
 	int getWidth() const;
@@ -24,15 +24,18 @@ private:
 	int heigth;
 };
 
-class AMonitorModule : IMonitorModule {
+class AMonitorModule : public IMonitorModule {
 public:
-	explicit AMonitorModule(const std::string &_type);
-	const std::string &getType() const override;
-	bool render(IMonitorDisplay &display) const override;
-	void clear(IMonitorDisplay &display) const override;
-	bool getInfos() override;
-private:
+	AMonitorModule(const std::string &_type, int x, int y, int w, int h);
+	AMonitorModule(const std::string &_type, const Box &box);
+	virtual const std::string &getType() const;
+	virtual bool render(IMonitorDisplay &display) const;
+	virtual void clear(IMonitorDisplay &display) const;
+	virtual bool getInfos();
+	virtual const Box &getBox() const;
+protected:
 	std::string _type;
+	Box _box;
 };
 
 

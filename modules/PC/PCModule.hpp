@@ -8,9 +8,21 @@
 #ifndef CPP_RUSH3_PCMODULE_HPP
 	#define CPP_RUSH3_PCMODULE_HPP
 
+	#include "ncurses/NcursesDisplay.hpp"
+	#include "AMonitorModule.hpp"
 
-class PCModule {
-
+class PCModule : public AMonitorModule {
+public:
+	PCModule(int x, int y, int w, int h);
+	explicit PCModule(const Box &box);
+	bool render(IMonitorDisplay &display) const override;
+	//bool render(NcursesDisplay &display) const;
+	void clear(IMonitorDisplay &display) const override;
+	bool getInfos() override;
+private:
+	std::string hostname;
+	std::string kernel;
+	std::string os;
 };
 
 

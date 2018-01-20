@@ -6,11 +6,12 @@
 */
 
 #include "ncurses/NcursesDisplay.hpp"
+#include "PC/PCModule.hpp"
 
 int main()
 {
 	NcursesDisplay display;
-	display.setup();
+	//display.setup();
 	display.render();
-	display.teardown();
+	//display.teardown();
 }

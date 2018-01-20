@@ -15,6 +15,7 @@
 class IMonitorDisplay {
 	virtual bool setup() = 0;
 	virtual bool render() = 0;
+	virtual bool clearRender() = 0;
 	virtual bool refreshRender() = 0;
 	virtual bool teardown() = 0;
 };
