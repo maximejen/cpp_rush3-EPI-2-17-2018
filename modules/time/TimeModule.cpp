@@ -11,7 +11,8 @@
 #include <fstream>
 #include "TimeModule.hpp"
 
-TimeModule::TimeModule() : AMonitorModule("TimeModule")
+TimeModule::TimeModule(int x, int y, int w, int h)
+: AMonitorModule("TimeModule", x, y, w, h)
 {
 }
 

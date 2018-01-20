@@ -14,7 +14,7 @@
 
 class UserModule : public AMonitorModule {
 public:
-	UserModule();
+	UserModule(int x, int y, int w, int h);
 	~UserModule();
 	const std::string &getUsername() const;
 	int getUid() const;

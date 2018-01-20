@@ -14,7 +14,7 @@
 
 class TimeModule : public AMonitorModule {
 public:
-	TimeModule();
+	TimeModule(int x, int y, int w, int h);
 	std::string getUpTime() const;
 	std::string getDate() const;
 

@@ -20,9 +20,8 @@ public:
 	void clear(IMonitorDisplay &display) const override;
 	bool getInfos() override;
 private:
-	std::string hostname;
-	std::string kernel;
-	std::string os;
+	std::string _kernel;
+	std::string _os;
 };
 
 

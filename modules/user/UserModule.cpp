@@ -11,8 +11,8 @@
 #include <pwd.h>
 #include "UserModule.hpp"
 
-UserModule::UserModule() :
-AMonitorModule("UserModule"), _username(getlogin()), _uid(getuid())
+UserModule::UserModule(int x, int y, int w, int h)
+: AMonitorModule("UserModule", x, y, w, h), _username(getlogin()), _uid(getuid())
 {
 	int ngroups = 100;
 	gid_t groups[10];
