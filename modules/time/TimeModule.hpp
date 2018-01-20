@@ -29,6 +29,8 @@ class TimeModule : public AMonitorModule {
 	GtkWidget *_fixed;
 	GtkWidget *_label;
 	std::string _str;
+	std::string _uptime;
+	std::string _date;
 	bool _isFixed;
 };
 

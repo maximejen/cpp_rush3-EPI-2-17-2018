@@ -37,6 +37,7 @@ class GTKDisplay : public IMonitorDisplay {
         GtkWidget *_window;
         std::vector<AMonitorModule *> _modules;
         std::map<const AMonitorModule *, bool> _map;
+	static void quit();
 };
 
 #endif /* !GTKDISPLAY_HPP_ */

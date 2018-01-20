@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "IMonitorDisplay.hpp"
 #include "AMonitorModule.hpp"
 
 AMonitorModule::AMonitorModule(const std::string &type, int x,
@@ -108,4 +109,20 @@ size_t Vec::getY() const
 
 Vec::Vec(size_t x, size_t y) : x(x), y(y)
 {
+}
+
+void Vec::setX(size_t x)
+{
+	this->x = x;
+}
+
+void Vec::setY(size_t y)
+{
+	this->y = y;
+}
+
+void Vec::setXY(size_t x, size_t y)
+{
+	this->x = x;
+	this->y = y;
 }
