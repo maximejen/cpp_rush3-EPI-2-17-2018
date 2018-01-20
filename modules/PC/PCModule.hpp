@@ -8,6 +8,7 @@
 #ifndef CPP_RUSH3_PCMODULE_HPP
 	#define CPP_RUSH3_PCMODULE_HPP
 
+	#include <AMonitorModule.hpp>
 	#include "AMonitorModule.hpp"
 	#include "gtk/GTKDisplay.hpp"
 	#include "ncurses/NcursesDisplay.hpp"
