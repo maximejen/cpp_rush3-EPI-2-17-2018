@@ -9,6 +9,11 @@
 	#define CPP_RUSH3_AMONITORMODULE_HPP
 
 	#include "IMonitorModule.hpp"
+	#include "gtk/GTKDisplay.hpp"
+	#include "ncurses/NcursesDisplay.hpp"
+
+class GTKDisplay;
+class NcursesDisplay;
 
 class Box {
 public:
@@ -29,8 +34,10 @@ public:
 	AMonitorModule(const std::string &_type, int x, int y, int w, int h);
 	AMonitorModule(const std::string &_type, const Box &box);
 	virtual const std::string &getType() const;
-	virtual bool render(IMonitorDisplay &display) const;
-	virtual void clear(IMonitorDisplay &display) const;
+	virtual bool render(NcursesDisplay &display) const = 0;
+	virtual bool render(GTKDisplay &display) const = 0;
+	virtual void clear(NcursesDisplay &display) const;
+	virtual void clear(GTKDisplay &display) const;
 	virtual bool getInfos();
 	virtual const Box &getBox() const;
 protected:

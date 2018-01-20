@@ -25,12 +25,22 @@ const std::string &AMonitorModule::getType() const
 	return _type;
 }
 
-bool AMonitorModule::render(IMonitorDisplay &display) const
+bool AMonitorModule::render(GTKDisplay &display) const
 {
 	return false;
 }
 
-void AMonitorModule::clear(IMonitorDisplay &display) const
+bool AMonitorModule::render(NcursesDisplay &display) const
+{
+	return false;
+}
+
+void AMonitorModule::clear(NcursesDisplay &display) const
+{
+	(void)(display);
+}
+
+void AMonitorModule::clear(GTKDisplay &display) const
 {
 	(void)(display);
 }

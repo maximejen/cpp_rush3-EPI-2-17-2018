@@ -18,12 +18,22 @@ PCModule::PCModule(const Box &box)
 {
 }
 
-bool PCModule::render(IMonitorDisplay &display) const
+bool PCModule::render(GTKDisplay &display) const
 {
-	std::cout << "base display" << std::endl;
+	std::cout << "GTK" << std::endl;
 }
 
-void PCModule::clear(IMonitorDisplay &display) const
+bool PCModule::render(NcursesDisplay &display) const
+{
+	std::cout << "Ncurses" << std::endl;
+}
+
+void PCModule::clear(NcursesDisplay &display) const
+{
+	AMonitorModule::clear(display);
+}
+
+void PCModule::clear(GTKDisplay &display) const
 {
 	AMonitorModule::clear(display);
 }
@@ -33,8 +43,3 @@ bool PCModule::getInfos()
 	std::cout << "info" << std::endl;
 	return true;
 }
-
-//bool PCModule::render(NcursesDisplay &display) const
-//{
-//	std::cout << "ok" << std::endl;
-//}

@@ -14,16 +14,18 @@
 	#include "AMonitorModule.hpp"
 	#include "IMonitorDisplay.hpp"
 
+class IMonitorModule;
+class AMonitorModule;
 
 class NcursesDisplay : public IMonitorDisplay {
 public:
 	NcursesDisplay();
 	virtual ~NcursesDisplay();
-	bool setup() override;
-	bool render() override;
-	bool refreshRender() override;
-	bool teardown() override;
-	bool clearRender() override;
+	bool setup();
+	bool render();
+	bool refreshRender();
+	bool teardown();
+	bool clearRender();
 private:
 	WINDOW *_mainwin;
 	std::vector<AMonitorModule *> _modules;

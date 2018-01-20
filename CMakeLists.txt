@@ -15,12 +15,12 @@ set(sources
         modules/PC/PCModule.cpp
         modules/PC/PCModule.hpp
         display/ncurses/NcursesDisplay.cpp
-        display/ncurses/NcursesDisplay.hpp)
+        display/ncurses/NcursesDisplay.hpp
+        display/gtk/GTKDisplay.cpp
+        display/gtk/GTKDisplay.hpp)
 
-set(test_sources tests/main.cpp)
+add_executable(cpp_rush3 ${sources})
 
-add_executable(cpp_rush3 ${sources} ${test_sources})
-
-target_link_libraries(cpp_rush3 ncurses)
+target_link_libraries(cpp_rush3 ncurses gtk-3 gobject-2.0)
 
 target_include_directories(cpp_rush3 PRIVATE modules display)
