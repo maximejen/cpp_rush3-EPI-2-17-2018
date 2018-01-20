@@ -20,6 +20,9 @@ public:
 	Vec(int x, int y);
 	int getX() const;
 	int getY() const;
+	void setXY(int x, int y);
+	void setX(int x);
+	void setY(int y);
 
 private:
 	int x;

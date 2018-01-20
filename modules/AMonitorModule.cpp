@@ -103,3 +103,19 @@ int Vec::getY() const
 Vec::Vec(int x, int y) : x(x), y(y)
 {
 }
+
+void Vec::setX(int x)
+{
+	this->x = x;
+}
+
+void Vec::setY(int y)
+{
+	this->y = y;
+}
+
+void Vec::setXY(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+}

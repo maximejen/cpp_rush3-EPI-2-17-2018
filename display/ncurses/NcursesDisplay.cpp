@@ -5,12 +5,15 @@
 ** NcursesDisplay.cpp
 */
 #include <iostream>
+#include <time/TimeModule.hpp>
 #include "PC/PCModule.hpp"
 #include "NcursesDisplay.hpp"
 
 NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
 {
-	_modules.push_back(new PCModule(0, 0, 0, 0));
+//	_modules.push_back(new PCModule(0, 0, 0, 0));
+	_modules.push_back(new TimeModule(0, 0, 50, 5));
+
 }
 
 bool NcursesDisplay::setup()
@@ -24,12 +27,14 @@ bool NcursesDisplay::setup()
 bool NcursesDisplay::render()
 {
 	clearRender();
+//	refreshRender();
 	for (auto &n : _modules) {
 		if (!n->getInfos())
 			continue;
 		n->render(*this);
 	}
 	refreshRender();
+//	getch();
 	return true;
 }
 

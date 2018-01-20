@@ -15,11 +15,16 @@
 class TimeModule : public AMonitorModule {
 public:
 	TimeModule(int x, int y, int w, int h);
+	bool render(GTKDisplay &display) const override;
+	bool render(NcursesDisplay &display) const override;
 	std::string getUpTime() const;
 	std::string getDate() const;
+	bool getInfos() override;
 
 private:
 	const std::string uptimeFile = "/proc/uptime";
+	std::string uptime;
+	std::string date;
 };
 
 #endif /* !CPP_RUSH3_TIMEMODULE_HPP */
