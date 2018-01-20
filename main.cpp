@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 	display.setup();
 	while (1) {
 		display.render();
+		sleep(1.5);
 	}
 	display.teardown();
 }
