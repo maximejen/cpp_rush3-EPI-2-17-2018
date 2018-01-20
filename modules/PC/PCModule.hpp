@@ -21,6 +21,8 @@ public:
 	const std::map<std::string, std::string> &getOsInfos() const;
 	const std::string &getKernelVersion() const;
 	const std::string &getPCModel() const;
+	virtual bool render(NcursesDisplay &display) const;
+	virtual bool render(GTKDisplay &display) const;
 
 protected:
 private:

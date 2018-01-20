@@ -72,3 +72,15 @@ const std::string &PCModule::getPCModel() const
 {
 	return this->pcModel;
 }
+
+bool PCModule::render(NcursesDisplay &display) const
+{
+	(void)display;
+	return false;
+}
+
+bool PCModule::render(GTKDisplay &display) const
+{
+	(void)display;
+	return false;
+}

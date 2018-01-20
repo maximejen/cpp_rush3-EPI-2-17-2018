@@ -34,6 +34,7 @@ bool AMonitorModule::render(GTKDisplay &display) const
 
 bool AMonitorModule::render(NcursesDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 

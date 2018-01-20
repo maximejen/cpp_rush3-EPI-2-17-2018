@@ -59,17 +59,21 @@ bool TimeModule::render(GTKDisplay &display) const
         // w = (getBox().getWidth() / 2) - (w / 2);
         // h = (getBox().getHeigth() / 2) - (h / 2);
         gtk_fixed_put(GTK_FIXED(fixed), label, 20, 20);
+	return true;
 }
 
 bool TimeModule::render(NcursesDisplay &display) const
 {
+	(void)display;
         return false;
 }
 
 void TimeModule::clear(NcursesDisplay &display) const
 {
+	(void)display;
 }
 
 void TimeModule::clear(GTKDisplay &display) const
 {
+	(void)display;
 }
