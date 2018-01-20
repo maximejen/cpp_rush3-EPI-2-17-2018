@@ -6,6 +6,8 @@ set(sources
         modules/IMonitorModule.hpp
         display/IMonitorDisplay.hpp
         main.cpp
+        modules/CPU/CPUModule.cpp
+        modules/CPU/CPUModule.hpp
         modules/AMonitorModule.cpp
         modules/AMonitorModule.hpp
         modules/user/UserModule.cpp
@@ -15,7 +17,9 @@ set(sources
         modules/PC/PCModule.cpp
         modules/PC/PCModule.hpp
         display/ncurses/NcursesDisplay.cpp
-        display/ncurses/NcursesDisplay.hpp display/ncurses/tool/NcursesTool.cpp display/ncurses/tool/NcursesTool.hpp
+        display/ncurses/NcursesDisplay.hpp
+        display/ncurses/tool/NcursesTool.cpp
+        display/ncurses/tool/NcursesTool.hpp
         display/ncurses/NcursesDisplay.hpp
         display/gtk/GTKDisplay.cpp
         display/gtk/GTKDisplay.hpp)

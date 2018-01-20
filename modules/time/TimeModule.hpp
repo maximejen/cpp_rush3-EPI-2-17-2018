@@ -21,9 +21,6 @@ class TimeModule : public AMonitorModule {
         bool render(GTKDisplay &display) const override;
         void clear(NcursesDisplay &display) const override;
         void clear(GTKDisplay &display) const override;
-        std::string getUpTime() const;
-        std::string getDate() const;
-
 private:
 	const std::string uptimeFile = "/proc/uptime";
 	std::string uptime;

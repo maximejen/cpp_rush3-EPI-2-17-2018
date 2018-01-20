@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <ncurses/tool/NcursesTool.hpp>
+#include <sstream>
 #include "TimeModule.hpp"
 
 TimeModule::TimeModule(int x, int y, int w, int h)
