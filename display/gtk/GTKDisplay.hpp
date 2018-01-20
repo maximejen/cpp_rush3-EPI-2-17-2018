@@ -8,12 +8,13 @@
 #ifndef GTKDISPLAY_HPP_
 #define GTKDISPLAY_HPP_
 
-#include <vector>
-#include <utility>
-#include <gtk/gtk.h>
-#include "IMonitorDisplay.hpp"
 #include "AMonitorModule.hpp"
 #include "GTKModule.hpp"
+#include "IMonitorDisplay.hpp"
+#include <gtk/gtk.h>
+#include <map>
+#include <utility>
+#include <vector>
 
 class AMonitorModule;
 class IMonitorModule;
@@ -22,17 +23,21 @@ class GTKDisplay : public IMonitorDisplay {
       public:
         GTKDisplay();
         ~GTKDisplay();
-	bool setup();
-	bool render();
-	bool refreshRender();
-	bool clearRender();
-	bool teardown();
+        bool setup();
+        bool render();
+        bool refreshRender();
+        bool clearRender();
+        bool teardown();
+        bool isIn(const AMonitorModule *) const;
+        bool addToDisplay(const AMonitorModule *, GtkWidget *, size_t, size_t);
         GtkWidget *_fixed;
 
       protected:
       private:
         GtkWidget *_window;
-	std::vector<AMonitorModule *> _modules;
+        std::vector<AMonitorModule *> _modules;
+        std::map<const AMonitorModule *, bool> _map;
+	static void quit();
 };
 
 #endif /* !GTKDISPLAY_HPP_ */
