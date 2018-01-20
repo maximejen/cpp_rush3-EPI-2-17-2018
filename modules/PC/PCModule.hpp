@@ -23,6 +23,8 @@ public:
 	const std::string &getPCModel() const;
 	virtual bool render(NcursesDisplay &display) const;
 	virtual bool render(GTKDisplay &display) const;
+	bool getInfos();
+	void reloadModule();
 
 protected:
 private:

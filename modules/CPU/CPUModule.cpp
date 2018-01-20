@@ -36,6 +36,7 @@ bool CPUModule::render(NcursesDisplay &display) const
 
 bool CPUModule::render(GTKDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 
@@ -76,7 +77,7 @@ bool CPUModule::getInfos()
 	std::ifstream proc_stat("/proc/stat");
 	if (!proc_stat.is_open())
 		return false;
-	for (int i = 0; i < this->cpu ; i++) {
+	for (unsigned int i = 0; i < this->cpu ; i++) {
 		if (!get_next_cpu(proc_stat, i))
 			return false;
 	}

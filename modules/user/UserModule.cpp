@@ -87,3 +87,8 @@ bool UserModule::render(GTKDisplay &display) const
 	(void)display;
 	return false;
 }
+
+bool UserModule::getInfos()
+{
+	return true;
+}
