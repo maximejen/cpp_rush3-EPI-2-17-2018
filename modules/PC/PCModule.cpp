@@ -1,45 +1,74 @@
 /*
 ** EPITECH PROJECT, 2018
-** cpp_rush3
+**
 ** File description:
-** PCModule.cpp
+**
 */
-#include <fstream>
+
 #include <iostream>
+#include <fstream>
 #include "PCModule.hpp"
 
-PCModule::PCModule(int x, int y, int w, int h)
-: AMonitorModule("PCModule", x, y, w, h)
+PCModule::PCModule(int x, int y, int w, int h) :
+AMonitorModule("PCModule", x, y, w, h)
+{
+	std::string tmp1;
+
+	if (sizeof(int *) == 8)
+		this->kernelVersion += "x86_64 ";
+	else
+		this->kernelVersion += "x86 ";
+
+	std::ifstream filePCModel(this->pcModelFile);
+	if (filePCModel.is_open())
+		std::getline(filePCModel, this->pcModel);
+
+	std::ifstream file2(this->kernelOSTypeFile);
+	if (file2.is_open()) {
+		file2 >> tmp1;
+		this->kernelVersion += tmp1 + ' ';
+	}
+
+	std::ifstream file1(this->kernelOSReleaseFile);
+	if (file1.is_open()) {
+		file1 >> tmp1;
+		this->kernelVersion += tmp1;
+	}
+
+	std::ifstream file3(this->osReleaseFile);
+	if (file3.is_open()) {
+		std::string tmp;
+		while (!file3.eof() && std::getline(file3, tmp)) {
+			unsigned long i = 0;
+			for (i = 0 ; i < tmp.size() && tmp[i] != '=' ; i++);
+			this->osInfos[tmp.substr(0, i)] =
+			tmp.substr(i + 1, tmp.size() - (i + 1));
+		}
+	}
+}
+
+PCModule::~PCModule()
 {
 }
 
-PCModule::PCModule(const Box &box)
-: AMonitorModule("PCModule", box)
+bool PCModule::render(IMonitorDisplay &display) const
 {
+	(void)display;
+	std::cout << "Display" << std::endl;
+	return false;
 }
 
-bool PCModule::render(GTKDisplay &display) const
+const std::map<std::string, std::string> &PCModule::getOsInfos() const
 {
-	std::cout << "GTK" << std::endl;
+	return this->osInfos;
 }
 
-bool PCModule::render(NcursesDisplay &display) const
+const std::string &PCModule::getKernelVersion() const
 {
-	std::cout << "Ncurses" << std::endl;
+	return this->kernelVersion;
 }
 
-void PCModule::clear(NcursesDisplay &display) const
+const std::string &PCModule::getPCModel() const
 {
-	AMonitorModule::clear(display);
-}
-
-void PCModule::clear(GTKDisplay &display) const
-{
-	AMonitorModule::clear(display);
-}
-
-bool PCModule::getInfos()
-{
-	std::cout << "info" << std::endl;
-	return true;
+	return this->pcModel;
 }
