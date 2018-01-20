@@ -21,9 +21,9 @@ public:
 	bool render(GTKDisplay &display) const override;
 	void clear(NcursesDisplay &display) const override;
 	void clear(GTKDisplay &display) const override;
-	bool getInfos() override;
+	bool setup() override;
 private:
-	bool get_next_cpu(std::ifstream &, int index);
+	bool get_next_cpu(std::ifstream &, size_t index);
 	size_t cpu;
 	size_t histo_idx;
 	std::vector<std::vector<double>> histo;

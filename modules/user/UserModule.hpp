@@ -26,6 +26,7 @@ public:
 	const std::string &getHostName() const;
 	virtual bool render(NcursesDisplay &display) const;
 	virtual bool render(GTKDisplay &display) const;
+	bool getInfos();
 
 private:
 	std::string _username;

@@ -13,9 +13,12 @@
 
 NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
 {
+	struct winsize size;
+	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
+		exit(84);
 //	_modules.push_back(new PCModule(0, 0, 0, 0));
 //	_modules.push_back(new TimeModule(0, 0, 50, 5));
-	//_modules.push_back(new CPUModule(0, 0, 0, 0));
+	_modules.push_back(new CPUModule(0, 0, size.ws_col, size.ws_row));
 
 }
 
@@ -29,19 +32,22 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render()
 {
-	clearRender();
-//	refreshRender();
-	for (auto &n : _modules) {
-		struct winsize size;
-		if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
-			continue;
-		if (!n->getInfos())
-			continue;
-		n->render(*this);
+	while (true) {
+		auto c = static_cast<char>(getch());
+		if (c == 'q')
+			return false;
+		clearRender();
+		for (auto &n : _modules) {
+			struct winsize size;
+			if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
+				return false;
+			if (!n->setup())
+				continue;
+			n->render(*this);
+			n->event(c);
+		}
+		refreshRender();
 	}
-	refreshRender();
-//	getch();
-	return true;
 }
 
 bool NcursesDisplay::refreshRender()

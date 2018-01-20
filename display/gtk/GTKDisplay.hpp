@@ -9,7 +9,6 @@
 #define GTKDISPLAY_HPP_
 
 #include "AMonitorModule.hpp"
-#include "GTKModule.hpp"
 #include "IMonitorDisplay.hpp"
 #include <gtk/gtk.h>
 #include <map>

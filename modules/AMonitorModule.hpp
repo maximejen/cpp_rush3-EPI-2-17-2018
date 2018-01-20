@@ -23,6 +23,9 @@ public:
 	void setXY(size_t x, size_t y);
 	void setX(size_t x);
 	void setY(size_t y);
+	bool operator==(const Vec &vec);
+	bool operator>(const Vec &vec);
+	bool operator<(const Vec &vec);
 
 private:
 	size_t x;
@@ -55,8 +58,10 @@ public:
 	virtual bool render(GTKDisplay &display) const = 0;
 	virtual void clear(NcursesDisplay &display) const;
 	virtual void clear(GTKDisplay &display) const;
-	virtual bool getInfos();
+	virtual void event(char c);
+	virtual bool setup();
 	virtual const Box &getBox() const;
+	Box calcAbsSizeTerm(Box const &b) const;
 protected:
 	std::string _type;
 	Box _box;
