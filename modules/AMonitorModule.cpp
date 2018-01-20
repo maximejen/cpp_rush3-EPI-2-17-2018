@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <sys/ioctl.h>
 #include "IMonitorDisplay.hpp"
 #include "AMonitorModule.hpp"
 
@@ -56,6 +57,28 @@ bool AMonitorModule::getInfos()
 const Box &AMonitorModule::getBox() const
 {
 	return _box;
+}
+
+Box AMonitorModule::calcAbsSizeTerm(Box const &b) const
+{
+	struct winsize size;
+	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0) {
+		std::cerr << "Cannot get term size" << std::endl;
+		exit(1);
+	}
+	auto posX = static_cast<int>(size.ws_col *
+		(static_cast<float>(b.getX()) / 100));
+	auto posY = static_cast<int>(size.ws_row *
+		(static_cast<float>(b.getY()) / 100));
+	auto width = static_cast<int>(size.ws_col *
+		(static_cast<float>(b.getWidth()) / 100));
+	auto height = static_cast<int>(size.ws_row *
+	(static_cast<float>(b.getHeigth()) / 100));;
+	return Box(posX, posY, width, height);
+}
+
+void AMonitorModule::event(char)
+{
 }
 
 Box::Box(int x, int y, int width, int heigth)

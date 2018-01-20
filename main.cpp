@@ -15,8 +15,9 @@ int main(int argc, char **argv)
 	Box b(10, 10, 100, 31);
 	NcursesDisplay display;
 	display.setup();
-	while (1) {
-		display.render();
+	while (true) {
+		if (!display.render())
+			break;
 	}
 	display.teardown();
 }

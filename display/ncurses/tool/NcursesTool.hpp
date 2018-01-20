@@ -47,7 +47,7 @@ public:
 	void drawPercent(Percent &p);
 
 	static void drawHisto(NcursesDisplay const &disp, Box const &b,
-		Histo const &h);
+		Histo &h);
 
 private:
 	static void drawPointBox(NcursesDisplay const &disp,

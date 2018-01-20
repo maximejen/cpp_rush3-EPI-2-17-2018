@@ -12,7 +12,7 @@
 NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
 {
 //	_modules.push_back(new PCModule(0, 0, 0, 0));
-	_modules.push_back(new TimeModule(0, 0, 50, 5));
+	_modules.push_back(new TimeModule(0, 0, 50, 50));
 
 }
 
@@ -21,20 +21,23 @@ bool NcursesDisplay::setup()
 	_mainwin = initscr();
 	noecho();
 	curs_set(0);
+	timeout(100);
 	return false;
 }
 
 bool NcursesDisplay::render()
 {
+	auto c = static_cast<char>(getch());
+	if (c == 'q')
+		return false;
 	clearRender();
-//	refreshRender();
 	for (auto &n : _modules) {
 		if (!n->getInfos())
 			continue;
 		n->render(*this);
+		n->event(c);
 	}
 	refreshRender();
-//	getch();
 	return true;
 }
 

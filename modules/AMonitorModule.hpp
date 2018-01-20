@@ -54,8 +54,10 @@ public:
 	virtual bool render(GTKDisplay &display) const = 0;
 	virtual void clear(NcursesDisplay &display) const;
 	virtual void clear(GTKDisplay &display) const;
+	virtual void event(char c);
 	virtual bool getInfos();
 	virtual const Box &getBox() const;
+	Box calcAbsSizeTerm(Box const &b) const;
 protected:
 	std::string _type;
 	Box _box;

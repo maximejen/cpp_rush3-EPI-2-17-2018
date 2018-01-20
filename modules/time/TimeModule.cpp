@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <ncurses/tool/NcursesTool.hpp>
+#include <sstream>
 #include "TimeModule.hpp"
 
 TimeModule::TimeModule(int x, int y, int w, int h)
@@ -43,6 +44,17 @@ std::string TimeModule::getDate() const
         return std::ctime(&time);
 }
 
+bool TimeModule::render(NcursesDisplay &display) const
+{
+	Box absBox = calcAbsSizeTerm(getBox());
+	NcursesTool::drawBox(display, absBox, "Temps");
+	Vec v(10, 33);
+	NcursesTool::drawText(display, absBox, v, "Date:   " + date);
+	v.setXY(10, 66);
+	NcursesTool::drawText(display, absBox, v, "Uptime: " + uptime);
+	return true;
+}
+
 bool TimeModule::render(GTKDisplay &display) const
 {
         auto frame = gtk_frame_new("TimeModule");
@@ -72,12 +84,9 @@ void TimeModule::clear(GTKDisplay &display) const
 	(void)display;
 }
 
-bool TimeModule::render(NcursesDisplay &display) const
+bool TimeModule::getInfos()
 {
-	Vec v(10, 10);
-	NcursesTool::drawBox(display, getBox());
-	NcursesTool::drawText(display, getBox(), v, "Date: " + date);
-	v.setXY(10, 50);
-	NcursesTool::drawText(display, getBox(), v, "Uptime: " + uptime);
-	return false;
+	uptime = getUpTime();
+	date = getDate();
+	return true;
 }

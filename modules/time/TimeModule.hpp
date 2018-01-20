@@ -6,7 +6,7 @@
 */
 
 #ifndef CPP_RUSH3_TIMEMODULE_HPP
-#define CPP_RUSH3_TIMEMODULE_HPP
+	#define CPP_RUSH3_TIMEMODULE_HPP
 
 #include <glob.h>
 #include <string>
@@ -21,8 +21,7 @@ class TimeModule : public AMonitorModule {
         bool render(GTKDisplay &display) const override;
         void clear(NcursesDisplay &display) const override;
         void clear(GTKDisplay &display) const override;
-        std::string getUpTime() const;
-        std::string getDate() const;
+	bool getInfos() override;
 
 private:
 	const std::string uptimeFile = "/proc/uptime";

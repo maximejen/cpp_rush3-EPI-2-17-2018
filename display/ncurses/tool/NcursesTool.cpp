@@ -70,6 +70,8 @@ Vec const &v, const std::string &text)
 	if (pos.getX() + 1 + text.length() >= b.getWidth())
 		t = t.substr(0, text.length() -
 		(pos.getX() + 2 + text.length() - b.getWidth()));
+	else
+		t = t.substr(0, text.length() - 1);
 	mvprintw(b.getY() + pos.getY() + 1,
 		b.getX() + pos.getX() + 1, "%s", t.c_str());
 }
@@ -129,7 +131,7 @@ Histo const &h)
 }
 
 void NcursesTool::drawHisto(NcursesDisplay const &disp, Box const &b,
-Histo const &h)
+Histo &h)
 {
 	if (!isIn(h.box.getX()) || !isIn(h.box.getY()))
 		return;
@@ -142,6 +144,7 @@ Histo const &h)
 		j--;
 		i += 1;
 	}
+	h.data.erase(h.data.begin(), h.data.begin() + j);
 }
 
 void NcursesTool::drawLineHist(int x, int y, Box const &b, int value)
