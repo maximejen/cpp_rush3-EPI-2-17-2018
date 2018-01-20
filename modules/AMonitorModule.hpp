@@ -10,6 +10,20 @@
 
 	#include "IMonitorModule.hpp"
 
+class box {
+public:
+	box(int x, int y, int width, int heigth);
+	int getX() const;
+	int getY() const;
+	int getWidth() const;
+	int getHeigth() const;
+private:
+	int x;
+	int y;
+	int width;
+	int heigth;
+};
+
 class AMonitorModule : IMonitorModule {
 public:
 	explicit AMonitorModule(const std::string &_type);

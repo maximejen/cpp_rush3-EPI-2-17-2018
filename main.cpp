@@ -5,8 +5,8 @@
 ** main.cpp
 */
 
-#include "diplay/IMonitorDisplay.hpp"
-#include "diplay/IMonitorDisplay.hpp"
+#include "IMonitorDisplay.hpp"
+#include "IMonitorDisplay.hpp"
 
 int main()
 {

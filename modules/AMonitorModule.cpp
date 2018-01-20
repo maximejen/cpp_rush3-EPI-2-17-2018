@@ -32,3 +32,28 @@ bool AMonitorModule::getInfos()
 {
 	return false;
 }
+
+box::box(int x, int y, int width, int heigth)
+: x(x), y(y), width(width), heigth(heigth)
+{
+}
+
+int box::getX() const
+{
+	return x;
+}
+
+int box::getY() const
+{
+	return y;
+}
+
+int box::getWidth() const
+{
+	return width;
+}
+
+int box::getHeigth() const
+{
+	return heigth;
+}
