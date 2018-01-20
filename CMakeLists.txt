@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.8)
 
 set(sources
         modules/IMonitorModule.hpp
-        diplay/IMonitorDisplay.hpp
+        display/IMonitorDisplay.hpp
         main.cpp
         modules/AMonitorModule.cpp
         modules/AMonitorModule.hpp
@@ -17,4 +17,4 @@ set(sources
 
 add_executable(cpp_rush3 ${sources})
 
-target_include_directories(cpp_rush3 PRIVATE modules diplay)
+target_include_directories(cpp_rush3 PRIVATE modules display)
