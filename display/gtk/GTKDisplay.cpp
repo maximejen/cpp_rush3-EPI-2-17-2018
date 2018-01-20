@@ -7,10 +7,11 @@
 
 #include "GTKDisplay.hpp"
 #include "PC/PCModule.hpp"
+#include "time/TimeModule.hpp"
 
 GTKDisplay::GTKDisplay()
 {
-        _modules.push_back(new PCModule(0, 0, 100, 100));
+        _modules.push_back(new TimeModule(20, 20, 300, 300));
 }
 
 GTKDisplay::~GTKDisplay()
@@ -35,6 +36,7 @@ bool GTKDisplay::render()
 {
         for (auto &e : _modules)
                 e->render(*this);
+	gtk_widget_show_all(_window);
 }
 
 bool GTKDisplay::clearRender()
