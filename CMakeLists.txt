@@ -17,7 +17,9 @@ set(sources
         display/ncurses/NcursesDisplay.cpp
         display/ncurses/NcursesDisplay.hpp)
 
-add_executable(cpp_rush3 ${sources})
+set(test_sources tests/main.cpp)
+
+add_executable(cpp_rush3 ${sources} ${test_sources})
 
 target_link_libraries(cpp_rush3 ncurses)
 
