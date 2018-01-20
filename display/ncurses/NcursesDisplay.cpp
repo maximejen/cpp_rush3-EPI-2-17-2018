@@ -47,6 +47,11 @@ bool NcursesDisplay::teardown()
 	return true;
 }
 
+WINDOW *NcursesDisplay::getWindow() const
+{
+	return _mainwin;
+}
+
 bool NcursesDisplay::clearRender()
 {
 	clear();
