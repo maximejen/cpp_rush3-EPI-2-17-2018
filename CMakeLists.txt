@@ -1,8 +1,13 @@
 project(cpp_rush3)
 
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.8)
 
-set(sources modules/IMonitorModule.hpp diplay/IMonitorDisplay.hpp main.cpp modules/AMonitorModule.cpp modules/AMonitorModule.hpp)
+set(sources
+        modules/IMonitorModule.hpp
+        diplay/IMonitorDisplay.hpp
+        main.cpp
+        modules/AMonitorModule.cpp
+        modules/AMonitorModule.hpp)
 
 add_executable(cpp_rush3 ${sources})
 
