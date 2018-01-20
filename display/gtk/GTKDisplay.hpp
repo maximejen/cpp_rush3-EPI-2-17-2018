@@ -27,11 +27,11 @@ class GTKDisplay : public IMonitorDisplay {
 	bool refreshRender();
 	bool clearRender();
 	bool teardown();
+        GtkWidget *_fixed;
 
       protected:
       private:
         GtkWidget *_window;
-        GtkWidget *_fixed;
 	std::vector<AMonitorModule *> _modules;
 };
 

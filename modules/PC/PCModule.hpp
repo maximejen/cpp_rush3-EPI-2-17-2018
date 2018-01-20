@@ -5,27 +5,36 @@
 ** PCModule.hpp
 */
 
-#ifndef CPP_RUSH3_PCMODULE_HPP
-	#define CPP_RUSH3_PCMODULE_HPP
+#ifndef CPP_RUSH3_PCMODULE_HPP_
+	#define CPP_RUSH3_PCMODULE_HPP_
 
 	#include <AMonitorModule.hpp>
 	#include "AMonitorModule.hpp"
-	#include "gtk/GTKDisplay.hpp"
-	#include "ncurses/NcursesDisplay.hpp"
+	#include <string>
+	#include <map>
 
 class PCModule : public AMonitorModule {
 public:
-	PCModule(int x, int y, int w, int h);
-	explicit PCModule(const Box &box);
-	bool render(NcursesDisplay &display) const override;
-	bool render(GTKDisplay &display) const override;
-	void clear(NcursesDisplay &display) const override;
-	void clear(GTKDisplay &display) const override;
-	bool getInfos() override;
+	explicit PCModule(int x, int y, int w, int h);
+	~PCModule();
+	bool render(IMonitorDisplay &display) const;
+	const std::map<std::string, std::string> &getOsInfos() const;
+	const std::string &getKernelVersion() const;
+	const std::string &getPCModel() const;
+	virtual bool render(NcursesDisplay &display) const;
+	virtual bool render(GTKDisplay &display) const;
+
+protected:
 private:
-	std::string _kernel;
-	std::string _os;
+	std::string _type;
+	const std::string osReleaseFile = "/etc/os-release";
+	const std::string kernelOSReleaseFile = "/proc/sys/kernel/osrelease";
+	const std::string kernelOSTypeFile = "/proc/sys/kernel/ostype";
+	const std::string pcModelFile =
+	"/sys/devices/virtual/dmi/id/product_name";
+	std::map<std::string, std::string> osInfos;
+	std::string kernelVersion;
+	std::string pcModel;
 };
 
-
-#endif /* !CPP_RUSH3_PCMODULE_HPP */
+#endif /* !CPP_RUSH3_PCMODULE_HPP_ */

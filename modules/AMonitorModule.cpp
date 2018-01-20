@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "IMonitorDisplay.hpp"
 #include "AMonitorModule.hpp"
 
 AMonitorModule::AMonitorModule(const std::string &type, int x,
@@ -27,11 +28,13 @@ const std::string &AMonitorModule::getType() const
 
 bool AMonitorModule::render(GTKDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 
 bool AMonitorModule::render(NcursesDisplay &display) const
 {
+	(void)display;
 	return false;
 }
 

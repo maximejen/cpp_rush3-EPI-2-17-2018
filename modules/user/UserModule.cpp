@@ -75,3 +75,15 @@ const std::string &UserModule::getHostName() const
 {
 	return _hostName;
 }
+
+bool UserModule::render(NcursesDisplay &display) const
+{
+	(void)display;
+	return false;
+}
+
+bool UserModule::render(GTKDisplay &display) const
+{
+	(void)display;
+	return false;
+}
