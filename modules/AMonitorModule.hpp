@@ -55,7 +55,7 @@ public:
 	virtual bool render(GTKDisplay &display) const = 0;
 	virtual void clear(NcursesDisplay &display) const;
 	virtual void clear(GTKDisplay &display) const;
-	virtual bool getInfos();
+	virtual bool setup();
 	virtual const Box &getBox() const;
 protected:
 	std::string _type;

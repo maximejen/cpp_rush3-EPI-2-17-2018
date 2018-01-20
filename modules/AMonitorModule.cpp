@@ -52,7 +52,7 @@ void AMonitorModule::clear(GTKDisplay &display) const
 	(void)(display);
 }
 
-bool AMonitorModule::getInfos()
+bool AMonitorModule::setup()
 {
 	return false;
 }

@@ -35,7 +35,7 @@ bool NcursesDisplay::render()
 		struct winsize size;
 		if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
 			continue;
-		if (!n->getInfos())
+		if (!n->setup())
 			continue;
 		n->render(*this);
 	}

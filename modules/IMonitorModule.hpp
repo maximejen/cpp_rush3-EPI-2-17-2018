@@ -10,8 +10,6 @@
 
 	#include <string>
 
-//TODO check avec le groupe
-
 class NcursesDisplay;
 class GTKDisplay;
 
@@ -22,7 +20,7 @@ public:
 	virtual bool render(GTKDisplay &display) const = 0;
 	virtual void clear(NcursesDisplay &display) const = 0;
 	virtual void clear(GTKDisplay &display) const = 0;
-	virtual bool getInfos() = 0;
+	virtual bool setup() = 0;
 };
 
 #endif /* !CPP_RUSH3_IMONITORMODULE_HPP */

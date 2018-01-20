@@ -50,7 +50,7 @@ void CPUModule::clear(GTKDisplay &display) const
 	(void)(display);
 }
 
-bool CPUModule::get_next_cpu(std::ifstream &stat, int idx)
+bool CPUModule::get_next_cpu(std::ifstream &stat, size_t idx)
 {
 	std::string line;
 	std::getline(stat, line);
@@ -72,12 +72,12 @@ bool CPUModule::get_next_cpu(std::ifstream &stat, int idx)
 	return true;
 }
 
-bool CPUModule::getInfos()
+bool CPUModule::setup()
 {
 	std::ifstream proc_stat("/proc/stat");
 	if (!proc_stat.is_open())
 		return false;
-	for (unsigned int i = 0; i < this->cpu ; i++) {
+	for (size_t i = 0; i < this->cpu ; i++) {
 		if (!get_next_cpu(proc_stat, i))
 			return false;
 	}

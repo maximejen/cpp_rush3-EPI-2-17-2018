@@ -53,7 +53,7 @@ bool PCModule::render(GTKDisplay &display) const
 	return false;
 }
 
-bool PCModule::getInfos()
+bool PCModule::setup()
 {
 	return true;
 }

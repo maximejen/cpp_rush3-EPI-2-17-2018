@@ -58,7 +58,7 @@ std::string TimeModule::getDate() const
 	return std::ctime(&time);
 }
 
-bool TimeModule::getInfos()
+bool TimeModule::setup()
 {
 	_str = "Uptime: <span size=\"x-large\"><b>";
 	_str += getUpTime().c_str();

@@ -25,7 +25,6 @@ void GTKDisplay::quit()
 
 bool GTKDisplay::setup()
 {
-	/* Création de la fenêtre */
 	_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_title(GTK_WINDOW(_window), "Rush 3");
@@ -45,7 +44,7 @@ bool GTKDisplay::setup()
 bool GTKDisplay::render()
 {
 	for (auto &e : _modules)
-		if (e->getInfos())
+		if (e->setup())
 			e->render(*this);
 	gtk_widget_show_all(_window);
 	gtk_main_iteration_do(FALSE);

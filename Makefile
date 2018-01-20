@@ -123,6 +123,33 @@ cpp_rush3/fast:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/build
 .PHONY : cpp_rush3/fast
 
+Parser.o: Parser.cpp.o
+
+.PHONY : Parser.o
+
+# target to build an object file
+Parser.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.o
+.PHONY : Parser.cpp.o
+
+Parser.i: Parser.cpp.i
+
+.PHONY : Parser.i
+
+# target to preprocess a source file
+Parser.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.i
+.PHONY : Parser.cpp.i
+
+Parser.s: Parser.cpp.s
+
+.PHONY : Parser.s
+
+# target to generate assembly for a file
+Parser.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.s
+.PHONY : Parser.cpp.s
+
 display/gtk/GTKDisplay.o: display/gtk/GTKDisplay.cpp.o
 
 .PHONY : display/gtk/GTKDisplay.o
@@ -375,6 +402,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... cpp_rush3"
+	@echo "... Parser.o"
+	@echo "... Parser.i"
+	@echo "... Parser.s"
 	@echo "... display/gtk/GTKDisplay.o"
 	@echo "... display/gtk/GTKDisplay.i"
 	@echo "... display/gtk/GTKDisplay.s"
