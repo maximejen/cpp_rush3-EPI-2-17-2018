@@ -21,12 +21,12 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render()
 {
-	refresh();
+	refreshRender();
 	getch();
 	return false;
 }
 
-bool NcursesDisplay::refresh()
+bool NcursesDisplay::refreshRender()
 {
 	refresh();
 	return false;

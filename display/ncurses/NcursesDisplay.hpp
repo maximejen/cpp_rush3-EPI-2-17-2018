@@ -16,7 +16,7 @@ public:
 	NcursesDisplay();
 	bool setup() override;
 	bool render() override;
-	bool refresh() override;
+	bool refreshRender() override;
 	bool teardown() override;
 private:
 	WINDOW *_mainwin;
