@@ -7,6 +7,7 @@
 
 #include "TimeModule.hpp"
 #include <ctime>
+#include <iostream>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -18,18 +19,21 @@ TimeModule::TimeModule(int x, int y, int w, int h)
 
 std::string TimeModule::getUpTime() const
 {
-        std::stringstream date;
-        std::ifstream file(uptimeFile);
-        int uptime;
-        file >> uptime;
+	std::stringstream date;
+	std::ifstream file(uptimeFile);
+	if (file.is_open()) {
+		int uptime;
+		file >> uptime;
 
-        int days = uptime / (60 * 60 * 24);
-        int hours = uptime / (60 * 60);
-        int minutes = (uptime / 60) % 60;
-        int seconds = uptime % 60;
-        date << days << "d " << hours << "h " << minutes << "m " << seconds
-             << "s.";
-        return date.str();
+		int days = uptime / (60 * 60 * 24);
+		int hours = uptime / (60 * 60) % 24;
+		int minutes = (uptime / 60) % 60;
+		int seconds = uptime % 60;
+		date << days << "d " << hours << "h " << minutes << "m " << seconds
+		     << "s.";
+		return date.str();
+	}
+	return "";
 }
 
 std::string TimeModule::getDate() const
