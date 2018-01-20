@@ -14,12 +14,11 @@
 #include "TimeModule.hpp"
 
 TimeModule::TimeModule(int x, int y, int w, int h)
-    : AMonitorModule("TimeModule", x, y, w, h)
+: AMonitorModule("TimeModule", x, y, w, h), _show(true)
 {
 	_frame = gtk_frame_new("Time Module");
 	gtk_widget_set_size_request(GTK_WIDGET(_frame), getBox().getWidth(),
-	                            getBox().getHeigth());
-	_isFixed = false;
+				    getBox().getHeigth());
 	_fixed = gtk_fixed_new();
 	gtk_container_add(GTK_CONTAINER(_frame), _fixed);
 	_str = "Uptime: <span size=\"x-large\"><b>";
@@ -59,22 +58,11 @@ std::string TimeModule::getDate() const
 	return std::ctime(&time);
 }
 
-bool TimeModule::setup()
-{
-	_str = "Uptime: <span size=\"x-large\"><b>";
-	_str += getUpTime().c_str();
-	_str += "</b></span>\nSince: <span size=\"x-large\"><b>";
-	_str += getDate().c_str();
-	_str += "</b></span>";
-	return true;
-}
-
 bool TimeModule::render(GTKDisplay &display) const
 {
-	if (display.isIn(this) == false) {
-		std::cout << "Added !" << std::endl;
+	if (!display.isIn(this)) {
 		display.addToDisplay(this, _frame, getBox().getX(),
-		                     getBox().getY());
+				     getBox().getY());
 	}
 	gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
 	return true;
@@ -82,27 +70,41 @@ bool TimeModule::render(GTKDisplay &display) const
 
 bool TimeModule::render(NcursesDisplay &display) const
 {
+	if (!_show)
+		return false;
+	Box b = calcAbsSizeTerm(getBox());
 	Vec v(10, 10);
-	NcursesTool::drawBox(display, getBox());
-	NcursesTool::drawText(display, getBox(), v, "Date: " + _date);
+	NcursesTool::drawBox(display, b);
+	NcursesTool::drawText(display, b, v, "Date: " + _date);
 	v.setXY(10, 50);
-	NcursesTool::drawText(display, getBox(), v, "Uptime: " + _uptime);
-	return false;
+	NcursesTool::drawText(display, b, v, "Uptime: " + _uptime);
+	return true;
 }
 
 void TimeModule::clear(NcursesDisplay &display) const
 {
-	(void)display;
+	(void) display;
 }
 
 void TimeModule::clear(GTKDisplay &display) const
 {
-	(void)display;
+	(void) display;
 }
 
-bool TimeModule::getInfos()
+bool TimeModule::setup()
 {
-	uptime = getUpTime();
-	date = getDate();
+	_uptime = getUpTime();
+	_date = getDate();
+	_str = "Uptime: <span size=\"x-large\"><b>";
+	_str += _uptime.c_str();
+	_str += "</b></span>\nSince: <span size=\"x-large\"><b>";
+	_str += _date.c_str();
+	_str += "</b></span>";
 	return true;
+}
+
+void TimeModule::event(char c)
+{
+	if (c == 't')
+		_show = !_show;
 }

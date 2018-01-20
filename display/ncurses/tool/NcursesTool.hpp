@@ -55,7 +55,7 @@ private:
 	static Box drawHistoBox(NcursesDisplay const &disp,
 		Box const &b, Histo const &h);
 	static void drawLineHist(size_t x, size_t y, Box const &b, int value);
-	static bool isIn(int a, int rA = 0, int rB = 100);
+	static bool isIn(size_t a, size_t rA = 0, size_t rB = 100);
 	static Vec calcCoordinate(Box const &b, Vec const &v, int shift = 3);
 	NcursesDisplay &_disp;
 	Box const _box;

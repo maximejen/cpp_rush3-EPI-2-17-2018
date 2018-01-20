@@ -56,7 +56,7 @@ public:
 	virtual void clear(NcursesDisplay &display) const;
 	virtual void clear(GTKDisplay &display) const;
 	virtual void event(char c);
-	virtual bool getInfos();
+	virtual bool setup();
 	virtual const Box &getBox() const;
 	Box calcAbsSizeTerm(Box const &b) const;
 protected:

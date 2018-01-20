@@ -29,21 +29,22 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render()
 {
-	auto c = static_cast<char>(getch());
-	if (c == 'q')
-		return false;
-	clearRender();
-	for (auto &n : _modules) {
-		struct winsize size;
-		if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
-			continue;
-		if (!n->setup())
-			continue;
-		n->render(*this);
-		n->event(c);
+	while (true) {
+		auto c = static_cast<char>(getch());
+		if (c == 'q')
+			return false;
+		clearRender();
+		for (auto &n : _modules) {
+			struct winsize size;
+			if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
+				return false;
+			if (!n->setup())
+				continue;
+			n->render(*this);
+			n->event(c);
+		}
+		refreshRender();
 	}
-	refreshRender();
-	return true;
 }
 
 bool NcursesDisplay::refreshRender()

@@ -11,7 +11,9 @@
 #include "AMonitorModule.hpp"
 
 AMonitorModule::AMonitorModule(const std::string &type, int x,
-int y, int w, int h): _type(type), _box(x, y, w, h)
+int y, int w, int h): _type(type),
+_box(static_cast<size_t>(x), static_cast<size_t>(y), static_cast<size_t>(w),
+static_cast<size_t>(h))
 {
 
 }
@@ -65,7 +67,7 @@ const Box &AMonitorModule::getBox() const
 
 Box AMonitorModule::calcAbsSizeTerm(Box const &b) const
 {
-	struct winsize size;
+	struct winsize size = {};
 	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0) {
 		std::cerr << "Cannot get term size" << std::endl;
 		exit(1);
@@ -85,7 +87,7 @@ void AMonitorModule::event(char)
 {
 }
 
-Box::Box(int x, int y, int width, int heigth)
+Box::Box(size_t x, size_t y, size_t width, size_t heigth)
 : x(x), y(y), width(width), heigth(heigth)
 {
 }

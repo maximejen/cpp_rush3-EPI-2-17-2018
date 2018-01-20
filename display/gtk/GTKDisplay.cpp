@@ -43,12 +43,13 @@ bool GTKDisplay::setup()
 
 bool GTKDisplay::render()
 {
-	for (auto &e : _modules)
-		if (e->setup())
-			e->render(*this);
-	gtk_widget_show_all(_window);
-	gtk_main_iteration_do(FALSE);
-	return true;
+	while (true) {
+		for (auto &e : _modules)
+			if (e->setup())
+				e->render(*this);
+		gtk_widget_show_all(_window);
+		gtk_main_iteration_do(FALSE);
+	}
 }
 
 bool GTKDisplay::clearRender()

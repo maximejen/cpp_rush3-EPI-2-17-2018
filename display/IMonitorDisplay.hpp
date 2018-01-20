@@ -11,6 +11,7 @@
 	#include "IMonitorModule.hpp"
 
 class IMonitorDisplay {
+public:
 	virtual bool setup() = 0;
 	virtual bool render() = 0;
 	virtual bool clearRender() = 0;
