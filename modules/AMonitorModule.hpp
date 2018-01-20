@@ -12,7 +12,7 @@
 
 class AMonitorModule : IMonitorModule {
 public:
-private:
+	explicit AMonitorModule(const std::string &_type);
 	const std::string &getType() const override;
 	bool render(IMonitorDisplay &display) const override;
 	void clear(IMonitorDisplay &display) const override;

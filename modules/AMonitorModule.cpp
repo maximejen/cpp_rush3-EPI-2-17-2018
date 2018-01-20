@@ -7,6 +7,11 @@
 
 #include "AMonitorModule.hpp"
 
+AMonitorModule::AMonitorModule(const std::string &_type)
+: _type(_type)
+{
+}
+
 const std::string &AMonitorModule::getType() const
 {
 	return _type;

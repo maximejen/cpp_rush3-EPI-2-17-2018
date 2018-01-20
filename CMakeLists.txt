@@ -7,7 +7,13 @@ set(sources
         diplay/IMonitorDisplay.hpp
         main.cpp
         modules/AMonitorModule.cpp
-        modules/AMonitorModule.hpp)
+        modules/AMonitorModule.hpp
+        modules/user/UserModule.cpp
+        modules/user/UserModule.hpp
+        modules/time/TimeModule.cpp
+        modules/time/TimeModule.hpp
+        modules/PC/PCModule.cpp
+        modules/PC/PCModule.hpp)
 
 add_executable(cpp_rush3 ${sources})
 
