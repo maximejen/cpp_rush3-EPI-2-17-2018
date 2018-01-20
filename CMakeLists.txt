@@ -24,4 +24,4 @@ add_executable(cpp_rush3 ${sources})
 
 target_link_libraries(cpp_rush3 ncurses gtk-3 gobject-2.0)
 
-target_include_directories(cpp_rush3 PRIVATE modules display /usr/include/gtk-3.0 /usr/include/glib-2.0 /usr/lib/glib-2.0/include/ /usr/include/pango-1.0 /usr/include/cairo /usr/include/gdk-pixbuf-2.0 /usr/include/atk-1.0 /usr/include/glib-2.0 /usr/lib64/glib-2.0/include)
+target_include_directories(cpp_rush3 PRIVATE modules display /usr/include/gtk-3.0 /usr/include/glib-2.0 /usr/lib/glib-2.0/include/ /usr/include/pango-1.0 /usr/include/cairo /usr/include/gdk-pixbuf-2.0 /usr/include/atk-1.0 /usr/include/glib-2.0 /usr/lib64/glib-2.0/include /usr/lib/x86_64-linux-gnu/glib-2.0/include/)
