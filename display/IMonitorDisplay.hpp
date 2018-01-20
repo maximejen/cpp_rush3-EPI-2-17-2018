@@ -10,8 +10,6 @@
 
 	#include "IMonitorModule.hpp"
 
-//TODO check avec le groupe
-
 class IMonitorDisplay {
 	virtual bool setup() = 0;
 	virtual bool render() = 0;

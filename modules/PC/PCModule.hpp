@@ -23,8 +23,8 @@ public:
 	const std::string &getPCModel() const;
 	virtual bool render(NcursesDisplay &display) const;
 	virtual bool render(GTKDisplay &display) const;
-
-protected:
+	bool setup();
+	void reloadModule();
 private:
 	std::string _type;
 	const std::string osReleaseFile = "/etc/os-release";

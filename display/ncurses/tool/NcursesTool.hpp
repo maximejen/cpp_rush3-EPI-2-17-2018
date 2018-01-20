@@ -15,15 +15,15 @@
 
 struct Percent {
 	Percent() = default;
-	Percent(int x, int y, int width, int value);
+	Percent(size_t x, size_t y, size_t width, size_t value);
 	Vec pos;
-	int width;
-	int value;
+	size_t width;
+	size_t value;
 };
 
 struct Histo {
 	Histo() = default;
-	Histo(int x, int y, int width, int height, std::vector<int> &data,
+	Histo(size_t x, size_t y, size_t width, size_t height, std::vector<int> &data,
 		std::string const &name = "");
 	Box box;
 	std::vector<int> data;
@@ -51,10 +51,10 @@ public:
 
 private:
 	static void drawPointBox(NcursesDisplay const &disp,
-		Box const &b, int x, int y);
+		Box const &b, size_t x, size_t y);
 	static Box drawHistoBox(NcursesDisplay const &disp,
 		Box const &b, Histo const &h);
-	static void drawLineHist(int x, int y, Box const &b, int value);
+	static void drawLineHist(size_t x, size_t y, Box const &b, int value);
 	static bool isIn(int a, int rA = 0, int rB = 100);
 	static Vec calcCoordinate(Box const &b, Vec const &v, int shift = 3);
 	NcursesDisplay &_disp;

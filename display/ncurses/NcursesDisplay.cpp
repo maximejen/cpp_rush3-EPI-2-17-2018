@@ -6,6 +6,8 @@
 */
 #include <iostream>
 #include <time/TimeModule.hpp>
+#include <sys/ioctl.h>
+#include "CPU/CPUModule.hpp"
 #include "PC/PCModule.hpp"
 #include "NcursesDisplay.hpp"
 
@@ -32,7 +34,10 @@ bool NcursesDisplay::render()
 		return false;
 	clearRender();
 	for (auto &n : _modules) {
-		if (!n->getInfos())
+		struct winsize size;
+		if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
+			continue;
+		if (!n->setup())
 			continue;
 		n->render(*this);
 		n->event(c);

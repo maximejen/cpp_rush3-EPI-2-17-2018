@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/arthur/.jetBrains/clion-2017.3.1/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/arzad/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4127.32/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/arthur/.jetBrains/clion-2017.3.1/bin/cmake/bin/cmake -E remove -f
+RM = /home/arzad/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4127.32/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3
+CMAKE_SOURCE_DIR = /home/arzad/delivery/cpp_rush3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3
+CMAKE_BINARY_DIR = /home/arzad/delivery/cpp_rush3
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/arthur/.jetBrains/clion-2017.3.1/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/arzad/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4127.32/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/arthur/.jetBrains/clion-2017.3.1/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/arzad/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4127.32/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3/CMakeFiles /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arzad/delivery/cpp_rush3/CMakeFiles /home/arzad/delivery/cpp_rush3/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arthur/delivery/TEK2/CPP_Pool/cpp_rush3/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arzad/delivery/cpp_rush3/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,33 @@ cpp_rush3: cmake_check_build_system
 cpp_rush3/fast:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/build
 .PHONY : cpp_rush3/fast
+
+Parser.o: Parser.cpp.o
+
+.PHONY : Parser.o
+
+# target to build an object file
+Parser.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.o
+.PHONY : Parser.cpp.o
+
+Parser.i: Parser.cpp.i
+
+.PHONY : Parser.i
+
+# target to preprocess a source file
+Parser.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.i
+.PHONY : Parser.cpp.i
+
+Parser.s: Parser.cpp.s
+
+.PHONY : Parser.s
+
+# target to generate assembly for a file
+Parser.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.s
+.PHONY : Parser.cpp.s
 
 display/gtk/GTKDisplay.o: display/gtk/GTKDisplay.cpp.o
 
@@ -258,6 +285,33 @@ modules/AMonitorModule.cpp.s:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/AMonitorModule.cpp.s
 .PHONY : modules/AMonitorModule.cpp.s
 
+modules/CPU/CPUModule.o: modules/CPU/CPUModule.cpp.o
+
+.PHONY : modules/CPU/CPUModule.o
+
+# target to build an object file
+modules/CPU/CPUModule.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/CPU/CPUModule.cpp.o
+.PHONY : modules/CPU/CPUModule.cpp.o
+
+modules/CPU/CPUModule.i: modules/CPU/CPUModule.cpp.i
+
+.PHONY : modules/CPU/CPUModule.i
+
+# target to preprocess a source file
+modules/CPU/CPUModule.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/CPU/CPUModule.cpp.i
+.PHONY : modules/CPU/CPUModule.cpp.i
+
+modules/CPU/CPUModule.s: modules/CPU/CPUModule.cpp.s
+
+.PHONY : modules/CPU/CPUModule.s
+
+# target to generate assembly for a file
+modules/CPU/CPUModule.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/CPU/CPUModule.cpp.s
+.PHONY : modules/CPU/CPUModule.cpp.s
+
 modules/PC/PCModule.o: modules/PC/PCModule.cpp.o
 
 .PHONY : modules/PC/PCModule.o
@@ -348,6 +402,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... cpp_rush3"
+	@echo "... Parser.o"
+	@echo "... Parser.i"
+	@echo "... Parser.s"
 	@echo "... display/gtk/GTKDisplay.o"
 	@echo "... display/gtk/GTKDisplay.i"
 	@echo "... display/gtk/GTKDisplay.s"
@@ -363,6 +420,9 @@ help:
 	@echo "... modules/AMonitorModule.o"
 	@echo "... modules/AMonitorModule.i"
 	@echo "... modules/AMonitorModule.s"
+	@echo "... modules/CPU/CPUModule.o"
+	@echo "... modules/CPU/CPUModule.i"
+	@echo "... modules/CPU/CPUModule.s"
 	@echo "... modules/PC/PCModule.o"
 	@echo "... modules/PC/PCModule.i"
 	@echo "... modules/PC/PCModule.s"

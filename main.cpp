@@ -5,19 +5,23 @@
 ** main.cpp
 */
 
-#include <iostream>
 #include "ncurses/NcursesDisplay.hpp"
-#include "AMonitorModule.hpp"
-#include "ncurses/tool/NcursesTool.hpp"
+#include "gtk/GTKDisplay.hpp"
+#include "Parser.hpp"
 
 int main(int argc, char **argv)
 {
-	Box b(10, 10, 100, 31);
-	NcursesDisplay display;
-	display.setup();
-	while (true) {
-		if (!display.render())
-			break;
+	Parser parser;
+	if (parser.ProcessArgs(argc, argv)) {
+		gtk_init(&argc, &argv);
+		GTKDisplay display;
+		display.setup();
+		display.render();
+		display.teardown();
+	} else {
+		NcursesDisplay display;
+		display.setup();
+		display.render();
+		display.teardown();
 	}
-	display.teardown();
 }

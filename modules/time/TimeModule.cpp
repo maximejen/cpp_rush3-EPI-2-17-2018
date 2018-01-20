@@ -7,8 +7,8 @@
 
 #include "TimeModule.hpp"
 #include <ctime>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <ncurses/tool/NcursesTool.hpp>
 #include <sstream>
 #include "TimeModule.hpp"
@@ -16,11 +16,26 @@
 TimeModule::TimeModule(int x, int y, int w, int h)
     : AMonitorModule("TimeModule", x, y, w, h)
 {
+	_frame = gtk_frame_new("Time Module");
+	gtk_widget_set_size_request(GTK_WIDGET(_frame), getBox().getWidth(),
+	                            getBox().getHeigth());
+	_isFixed = false;
+	_fixed = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(_frame), _fixed);
+	_str = "Uptime: <span size=\"x-large\"><b>";
+	_str += getUpTime().c_str();
+	_str += "</b></span>\nSince: <span size=\"x-large\"><b>";
+	_str += getDate().c_str();
+	_str += "</b></span>";
+	_label = gtk_label_new(_str.c_str());
+	gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
+	gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
+	gtk_fixed_put(GTK_FIXED(_fixed), _label, 20, 5);
 }
 
 std::string TimeModule::getUpTime() const
 {
-	std::stringstream date;
+	std::ostringstream date;
 	std::ifstream file(uptimeFile);
 	if (file.is_open()) {
 		int uptime;
@@ -30,8 +45,8 @@ std::string TimeModule::getUpTime() const
 		int hours = uptime / (60 * 60) % 24;
 		int minutes = (uptime / 60) % 60;
 		int seconds = uptime % 60;
-		date << days << "d " << hours << "h " << minutes << "m " << seconds
-		     << "s.";
+		date << days << "d " << hours << "h " << minutes << "m "
+		     << seconds << "s.";
 		return date.str();
 	}
 	return "";
@@ -39,39 +54,40 @@ std::string TimeModule::getUpTime() const
 
 std::string TimeModule::getDate() const
 {
-        auto time = std::time(nullptr);
+	auto time = std::time(nullptr);
 
-        return std::ctime(&time);
+	return std::ctime(&time);
 }
 
-bool TimeModule::render(NcursesDisplay &display) const
+bool TimeModule::setup()
 {
-	Box absBox = calcAbsSizeTerm(getBox());
-	NcursesTool::drawBox(display, absBox, "Temps");
-	Vec v(10, 33);
-	NcursesTool::drawText(display, absBox, v, "Date:   " + date);
-	v.setXY(10, 66);
-	NcursesTool::drawText(display, absBox, v, "Uptime: " + uptime);
+	_str = "Uptime: <span size=\"x-large\"><b>";
+	_str += getUpTime().c_str();
+	_str += "</b></span>\nSince: <span size=\"x-large\"><b>";
+	_str += getDate().c_str();
+	_str += "</b></span>";
 	return true;
 }
 
 bool TimeModule::render(GTKDisplay &display) const
 {
-        auto frame = gtk_frame_new("TimeModule");
-        gtk_widget_set_size_request(GTK_WIDGET(frame), getBox().getWidth(),
-                                    getBox().getHeigth());
-        gtk_fixed_put(GTK_FIXED(display._fixed), frame, getBox().getX(),
-                      getBox().getY());
-        auto fixed = gtk_fixed_new();
-        gtk_container_add(GTK_CONTAINER(frame), fixed);
-        auto label = gtk_label_new(getUpTime().c_str());
-        // int w;
-        // int h;
-        // gtk_widget_get_size_request(GTK_WIDGET(label), &w, &h);
-        // w = (getBox().getWidth() / 2) - (w / 2);
-        // h = (getBox().getHeigth() / 2) - (h / 2);
-        gtk_fixed_put(GTK_FIXED(fixed), label, 20, 20);
+	if (display.isIn(this) == false) {
+		std::cout << "Added !" << std::endl;
+		display.addToDisplay(this, _frame, getBox().getX(),
+		                     getBox().getY());
+	}
+	gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
 	return true;
+}
+
+bool TimeModule::render(NcursesDisplay &display) const
+{
+	Vec v(10, 10);
+	NcursesTool::drawBox(display, getBox());
+	NcursesTool::drawText(display, getBox(), v, "Date: " + _date);
+	v.setXY(10, 50);
+	NcursesTool::drawText(display, getBox(), v, "Uptime: " + _uptime);
+	return false;
 }
 
 void TimeModule::clear(NcursesDisplay &display) const
