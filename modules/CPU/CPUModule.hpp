@@ -24,11 +24,15 @@ public:
 	bool setup() override;
 private:
 	bool get_next_cpu(std::ifstream &, size_t index);
+	void getModel();
+	void getFrequence();
 	size_t cpu;
 	size_t histo_idx;
 	std::vector<std::vector<double>> histo;
 	std::vector<float> previous_idle;
 	std::vector<float> previous_total;
+	std::string model;
+	std::string frequence;
 };
 
 
