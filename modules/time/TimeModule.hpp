@@ -22,7 +22,7 @@ public:
 	void clear(NcursesDisplay &display) const override;
 	void clear(GTKDisplay &display) const override;
 	bool setup() override;
-	void event(char c) override;
+	void event(int c) override;
 
 private:
 	const std::string uptimeFile = "/proc/uptime";

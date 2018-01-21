@@ -23,7 +23,7 @@ class GTKDisplay : public IMonitorDisplay {
         GTKDisplay();
         ~GTKDisplay();
         bool setup();
-        bool render();
+        bool render(ModulePager &mp);
         bool refreshRender();
         bool clearRender();
         bool teardown();

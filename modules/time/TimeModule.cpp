@@ -103,7 +103,7 @@ bool TimeModule::setup()
 	return true;
 }
 
-void TimeModule::event(char c)
+void TimeModule::event(int c)
 {
 	if (c == 't')
 		_show = !_show;

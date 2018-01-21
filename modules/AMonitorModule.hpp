@@ -55,7 +55,7 @@ public:
 	virtual bool render(GTKDisplay &display) const = 0;
 	virtual void clear(NcursesDisplay &display) const;
 	virtual void clear(GTKDisplay &display) const;
-	virtual void event(char c);
+	virtual void event(int c);
 	virtual bool setup();
 	virtual const Box &getBox() const;
 	Box calcAbsSizeTerm(Box const &b) const;

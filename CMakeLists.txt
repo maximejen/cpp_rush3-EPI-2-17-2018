@@ -23,7 +23,10 @@ set(sources
         display/ncurses/NcursesDisplay.hpp
         display/gtk/GTKDisplay.cpp
         display/gtk/GTKDisplay.hpp
-        Parser.cpp Parser.hpp)
+        Parser.cpp
+        Parser.hpp
+        display/ModulePager.cpp
+        display/ModulePager.hpp)
 
 add_executable(cpp_rush3 ${sources})
 
