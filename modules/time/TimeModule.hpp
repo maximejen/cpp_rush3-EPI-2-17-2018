@@ -25,7 +25,7 @@ public:
 	void event(int c) override;
 
 private:
-	const std::string uptimeFile = "/proc/uptime";
+	const std::string uptimeFile;
 	GtkWidget *_frame;
 	GtkWidget *_fixed;
 	GtkWidget *_label;

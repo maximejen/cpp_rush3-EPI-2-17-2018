@@ -10,21 +10,19 @@
 #include "ncurses/tool/NcursesTool.hpp"
 #include "PCModule.hpp"
 
+
 PCModule::PCModule(int x, int y, int w, int h) :
-AMonitorModule("PCModule", x, y, w, h)
+AMonitorModule("PCModule", x, y, w, h),
+osReleaseFile("/etc/os-release"),
+kernelOSReleaseFile("/proc/sys/kernel/osrelease"),
+kernelOSTypeFile("/proc/sys/kernel/ostype"),
+pcModelFile("/sys/devices/virtual/dmi/id/product_name")
 {
 	this->reloadModule();
 }
 
 PCModule::~PCModule()
 {
-}
-
-bool PCModule::render(IMonitorDisplay &display) const
-{
-	(void)display;
-	std::cout << "Display" << std::endl;
-	return false;
 }
 
 const std::map<std::string, std::string> &PCModule::getOsInfos() const

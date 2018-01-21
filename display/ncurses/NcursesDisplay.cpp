@@ -4,6 +4,7 @@
 ** File description:
 ** NcursesDisplay.cpp
 */
+
 #include <iostream>
 #include <time/TimeModule.hpp>
 #include <sys/ioctl.h>
@@ -90,6 +91,8 @@ bool NcursesDisplay::event(ModulePager &mp, int c)
 
 void NcursesDisplay::printPageInfo(ModulePager const &mp)
 {
+	start_color();
+	init_pair(10, COLOR_BLACK, COLOR_WHITE);
 	struct winsize size = {};
 	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0) {
 		std::cerr << "Cannot get term size" << std::endl;
@@ -97,7 +100,12 @@ void NcursesDisplay::printPageInfo(ModulePager const &mp)
 	}
 	Page p = mp.getCurPage();
 	auto x = (size.ws_col / 2) - ((p.name.size() + 2) / 2);
+	attron(COLOR_PAIR(10));
+	for (int i = 0 ; i < size.ws_col ; i++) {
+		mvprintw(size.ws_row - 1, i, " ");
+	}
 	mvprintw(size.ws_row - 1, x, "[%s]", mp.getCurPage().name.c_str());
-	mvprintw(size.ws_row - 1, 0, "%c", '<');
-	mvprintw(size.ws_row - 1, size.ws_col - 1, "%c", '>');
+	mvprintw(size.ws_row - 1, 1, "%c", '<');
+	mvprintw(size.ws_row - 1, size.ws_col - 2, "%c", '>');
+	attroff(COLOR_PAIR(10));
 }
