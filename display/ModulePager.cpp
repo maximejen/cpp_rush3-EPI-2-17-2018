@@ -12,6 +12,20 @@
 #include "CPU/CPUModule.hpp"
 #include "ModulePager.hpp"
 
+static const Box o_g[] = {
+{0, 0, 50, 100},
+{50, 0, 50, 100},
+{0, 0, 50, 100},
+{50, 0, 50, 100},
+};
+
+static const Box c_g[] = {
+{0, 0, 50, 40},
+{50, 0, 50, 50},
+{0, 40, 50, 60},
+{50, 50, 50, 50},
+};
+
 ModulePager::ModulePager(): _currentPage(0)
 {
 }
@@ -67,20 +81,6 @@ ModulePager::~ModulePager()
 		for (auto &d : i.module)
 			delete(d);
 }
-
-static const Box o_g[] = {
-{0, 0, 50, 100},
-{50, 0, 50, 100},
-{0, 0, 50, 100},
-{50, 0, 50, 100},
-};
-
-static const Box c_g[] = {
-{0, 0, 50, 40},
-{50, 0, 50, 50},
-{0, 40, 50, 60},
-{50, 50, 50, 50},
-};
 
 void ModulePager::recalcModulesSize()
 {

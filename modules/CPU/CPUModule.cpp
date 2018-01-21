@@ -15,14 +15,14 @@
 
 CPUModule::CPUModule(int x, int y, int w, int h) :
 AMonitorModule("CPUModule", x, y, w, h),
-cpu(std::thread::hardware_concurrency()), histo_idx(),
+cpu(std::thread::hardware_concurrency()), histoIdx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
 	cpu = 0;
 }
 
 CPUModule::CPUModule(const Box &box): AMonitorModule("CPUModule", box),
-cpu(std::thread::hardware_concurrency()), histo_idx(),
+cpu(std::thread::hardware_concurrency()), histoIdx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
 	cpu = 0;
@@ -44,11 +44,20 @@ bool CPUModule::render(NcursesDisplay &display) const
 	std::string tag = "cpu";
 	for (i = (0 + start); i < nbGraphs; i++) {
 		Histo h((i - start) * 100 / (nbGraphs - start), 0, 100 /
-			(nbGraphs - start), 100, histo_int[i], tag);
+			(nbGraphs - start), 95, histo_int[i], tag);
 		NcursesTool::drawHisto(display, absBox, h);
 		tag = "cpu" + std::to_string(i);
 	}
+	printInfoCPU(display, absBox, getBox());
 	return true;
+}
+
+void CPUModule::printInfoCPU(NcursesDisplay &d, Box const &absB,
+Box const &b) const
+{
+	std::string s(model + " - " + frequence + " ");
+	Vec v(0, b.getY() + absB.getHeigth() - 1);
+	NcursesTool::drawText(d, b, v, s);
 }
 
 bool CPUModule::render(GTKDisplay &display) const
@@ -98,6 +107,8 @@ bool CPUModule::setup()
 		if (!get_next_cpu(proc_stat, i))
 			return false;
 	}
+	getModel();
+	getFrequence();
 	return true;
 }
 
@@ -111,7 +122,7 @@ void CPUModule::getFrequence()
 	std::string line;
 	while (std::getline(proc_stat, line)) {
 		if (std::regex_search(line, res, regex)) {
-			this->model = std::string(res[1]) + " MHz";
+			this->frequence = std::string(res[1]) + " MHz";
 		}
 	}
 }
