@@ -73,6 +73,7 @@ bool GTKDisplay::render(ModulePager &mp)
 	if (!_tabsLoaded)
 		loadTabs(mp);
 	while (true) {
+		first = true;
 		while (first || head.name != mp.getCurPage().name) {
 			for (auto &e : mp.getCurPage().module)
 				if (e->setup())
