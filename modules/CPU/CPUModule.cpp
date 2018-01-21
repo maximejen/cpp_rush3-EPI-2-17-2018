@@ -9,28 +9,42 @@
 #include <numeric>
 #include <iostream>
 #include <sstream>
+#include <regex>
 #include "ncurses/tool/NcursesTool.hpp"
 #include "CPUModule.hpp"
 
 CPUModule::CPUModule(int x, int y, int w, int h)
 : AMonitorModule("CPUModule", x, y, w, h),
 cpu(std::thread::hardware_concurrency()), histo_idx(),
-histo(cpu), previous_idle(cpu), previous_total(cpu)
+histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
 }
 
 CPUModule::CPUModule(const Box &box): AMonitorModule("CPUModule", box),
 cpu(std::thread::hardware_concurrency()), histo_idx(),
-histo(cpu), previous_idle(cpu), previous_total(cpu)
+histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
 }
 
 bool CPUModule::render(NcursesDisplay &display) const
 {
-	std::vector<int> nex(this->histo[0].begin(), this->histo[0]
-		.end());
-	Histo h(0, 0, 100, 100, nex, "CPU");
-	NcursesTool::drawHisto(display, this->getBox(), h);
+	size_t i;
+	auto nbGraphs = this->cpu + 1;
+	auto absBox = this->calcAbsSizeTerm(this->getBox());
+	std::vector<std::vector<int>> histo_int;
+	for (auto &n : this->histo) {
+		auto newV = std::vector<int>();
+		for (auto &a : n)
+			newV.push_back(static_cast<int>(a));
+		histo_int.push_back(newV);
+	}
+	std::string tag = "cpu";
+	for (i = 0; i < this->histo.size(); i++) {
+		Histo h(i * 100 / nbGraphs, 0, 100 / nbGraphs,
+		        100, histo_int[i], tag);
+		NcursesTool::drawHisto(display, absBox, h);
+		tag = "cpu" + std::to_string(i);
+	}
 	return true;
 }
 
@@ -77,10 +91,40 @@ bool CPUModule::setup()
 	std::ifstream proc_stat("/proc/stat");
 	if (!proc_stat.is_open())
 		return false;
-	for (size_t i = 0; i < this->cpu ; i++) {
+	for (size_t i = 0; i < this->cpu + 1; i++) {
 		if (!get_next_cpu(proc_stat, i))
 			return false;
 	}
 	return true;
+}
+
+void CPUModule::getFrequence()
+{
+	std::smatch res;
+	std::regex regex("^cpu MHz\\s+:\\s+(.+)$");
+	std::ifstream proc_stat("/proc/cpuinfo");
+	if (!proc_stat.is_open())
+		return;
+	std::string line;
+	while (std::getline(proc_stat, line)) {
+		if (std::regex_search(line, res, regex)) {
+			this->model = std::string(res[1]) + " MHz";
+		}
+	}
+}
+
+void CPUModule::getModel()
+{
+	std::smatch res;
+	std::regex regex("^model name\\s+:\\s+(.+)$");
+	std::ifstream proc_stat("/proc/cpuinfo");
+	if (!proc_stat.is_open())
+		return;
+	std::string line;
+	while (std::getline(proc_stat, line)) {
+		if (std::regex_search(line, res, regex)) {
+			this->model = res[1];
+		}
+	}
 }
 

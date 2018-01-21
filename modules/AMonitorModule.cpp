@@ -152,3 +152,26 @@ void Vec::setXY(size_t x, size_t y)
 	this->x = x;
 	this->y = y;
 }
+
+bool Vec::operator==(const Vec &vec)
+{
+	return this->getX() == vec.getX() && this->getY() == vec.getY();
+}
+
+bool Vec::operator>(const Vec &vec)
+{
+	auto ret = true;
+
+	if (this->getX() < vec.getX() || this->getY() < vec.getY())
+		ret = false;
+	return ret;
+}
+
+bool Vec::operator<(const Vec &vec)
+{
+	auto ret = true;
+
+	if (this->getX() > vec.getX() || this->getY() > vec.getY())
+		ret = false;
+	return ret;
+}

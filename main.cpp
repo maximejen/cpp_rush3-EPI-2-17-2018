@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 	mp.initModule();
 	if (parser.ProcessArgs(argc, argv)) {
+		gtk_init(&argc, &argv);
 		GTKDisplay display;
 		display.setup();
 		display.render(mp);

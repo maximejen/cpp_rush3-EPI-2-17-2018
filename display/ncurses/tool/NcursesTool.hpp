@@ -23,8 +23,8 @@ struct Percent {
 
 struct Histo {
 	Histo() = default;
-	Histo(size_t x, size_t y, size_t width, size_t height, std::vector<int> &data,
-		std::string const &name = "");
+	Histo(size_t x, size_t y, size_t width, size_t height,
+		std::vector<int> &data,	std::string const &name = "");
 	Box box;
 	std::vector<int> data;
 	std::string const title;

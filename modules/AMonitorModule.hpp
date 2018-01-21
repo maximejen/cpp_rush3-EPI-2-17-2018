@@ -23,6 +23,9 @@ public:
 	void setXY(size_t x, size_t y);
 	void setX(size_t x);
 	void setY(size_t y);
+	bool operator==(const Vec &vec);
+	bool operator>(const Vec &vec);
+	bool operator<(const Vec &vec);
 
 private:
 	size_t x;

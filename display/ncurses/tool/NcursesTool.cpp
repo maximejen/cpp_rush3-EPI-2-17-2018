@@ -7,6 +7,7 @@
 
 #include "NcursesTool.hpp"
 #include <iostream>
+#include <unordered_map>
 
 NcursesTool::NcursesTool(NcursesDisplay &disp, Box const &box)
 : _disp(disp), _box(box)
@@ -49,16 +50,26 @@ std::string const &title)
 void NcursesTool::drawPointBox(NcursesDisplay const &disp, Box const &b,
 size_t x, size_t y)
 {
-	(void) disp;
-	if ((x == b.getX() && y == b.getY()) ||
-	    (x == b.getAbsoluteW() - 1 && y == b.getAbsoluteH() - 1) ||
-	    (x == b.getX() && y == b.getAbsoluteH() - 1) ||
-	    (x == b.getAbsoluteW() - 1 && y == b.getY()))
-		mvprintw(y, x, "+");
+	(void)disp;
+	std::map<std::pair<size_t, size_t>, int> map = {
+	{std::pair<size_t, size_t>
+	 (b.getX(), b.getY()),                         ACS_ULCORNER},
+	{std::pair<size_t, size_t>
+	 (b.getAbsoluteW() - 1, b.getY()),             ACS_URCORNER},
+	{std::pair<size_t, size_t>
+	 (b.getX(), b.getAbsoluteH() - 1),             ACS_LLCORNER},
+	{std::pair<size_t, size_t>
+	 (b.getAbsoluteW() - 1, b.getAbsoluteH() - 1), ACS_LRCORNER}
+	};
+
+	std::pair<size_t, size_t> vec(x, y);
+	auto it = map.find(vec);
+	if (it != map.end())
+		mvaddch(y, x, map[vec]);
 	else if (y == b.getY() || y == b.getAbsoluteH() - 1)
-		mvprintw(y, x, "-");
+		mvaddch(y, x, ACS_HLINE);
 	else if (x == b.getX() || x == b.getAbsoluteW() - 1)
-		mvprintw(y, x, "|");
+		mvaddch(y, x, ACS_VLINE);
 }
 
 void NcursesTool::drawText(NcursesDisplay const &disp, Box const &b,
@@ -140,13 +151,14 @@ Histo &h)
 	size_t i = 0;
 	int j = static_cast<int>(h.data.size()) - 1;
 	Box box = drawHistoBox(disp, b, h);
-	while (j >= 0 && i < box.getWidth()) {
+	while (j >= 0 && i < box.getWidth() - 2) {
 		drawLineHist(box.getAbsoluteW() - 2 - i,
 			     box.getAbsoluteH() - 2, box, h.data[j]);
 		j--;
 		i += 1;
 	}
-	h.data.erase(h.data.begin(), h.data.begin() + j);
+	if (j > 0)
+		h.data.erase(h.data.begin(), h.data.begin() + j);
 }
 
 void NcursesTool::drawLineHist(size_t x, size_t y, Box const &b, int value)
