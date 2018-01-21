@@ -14,11 +14,6 @@
 
 int main(int argc, char **argv)
 {
-	try {
-		std::cout << getlogin() << std::endl;
-	} catch (...) {
-		std::cout << "Caught" << std::endl;
-	}
 	Parser parser;
 	ModulePager mp;
 	gtk_init(&argc, &argv);

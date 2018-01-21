@@ -54,8 +54,7 @@ void ModulePager::initModule()
 	modGeneral.push_back(new UserModule(50, 50, 50, 50));
 	addPage("Informations generales", modGeneral);
 	std::vector<AMonitorModule *> modCPU;
-	modCPU.push_back(new RAMModule(20, 20, 60, 60));
-	// modCPU.push_back(new CPUModule(0, 0, 100, 100));
+	modCPU.push_back(new CPUModule(0, 0, 100, 100));
 	addPage("Informations processeurs", modCPU);
 	std::vector<AMonitorModule *> modNet;
 	modNet.push_back(new NetworkModule(0, 0, 100, 100));
