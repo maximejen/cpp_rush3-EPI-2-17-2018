@@ -7,6 +7,7 @@
 #include <iostream>
 #include <time/TimeModule.hpp>
 #include <sys/ioctl.h>
+#include <RAM/RAMModule.hpp>
 #include "CPU/CPUModule.hpp"
 #include "PC/PCModule.hpp"
 #include "NcursesDisplay.hpp"
@@ -28,6 +29,7 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render()
 {
+	RAMModule r(0, 0, 0, 0);
 	while (true) {
 		auto c = static_cast<char>(getch());
 		if (c == 'q')
