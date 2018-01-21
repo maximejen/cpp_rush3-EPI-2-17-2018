@@ -23,7 +23,7 @@ set(sources
         display/ncurses/NcursesDisplay.hpp
         display/gtk/GTKDisplay.cpp
         display/gtk/GTKDisplay.hpp
-        Parser.cpp Parser.hpp)
+        Parser.cpp Parser.hpp modules/RAM/RAMModule.cpp modules/RAM/RAMModule.hpp)
 
 add_executable(cpp_rush3 ${sources})
 
