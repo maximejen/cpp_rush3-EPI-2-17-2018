@@ -5,7 +5,7 @@
 ** main.cpp
 */
 
-#include <ModulePager.hpp>
+#include "ModulePager.hpp"
 #include "ncurses/NcursesDisplay.hpp"
 #include "gtk/GTKDisplay.hpp"
 #include "Parser.hpp"

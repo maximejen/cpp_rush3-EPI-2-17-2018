@@ -26,10 +26,12 @@ public:
 
 private:
 	bool get_next_cpu(std::ifstream &, size_t index);
+	void printInfoCPU(NcursesDisplay &d, Box const &abs,
+	Box const &b) const;
 	void getModel();
 	void getFrequence();
 	size_t cpu;
-	size_t histo_idx;
+	size_t histoIdx;
 	std::vector<std::vector<double>> histo;
 	std::vector<float> previous_idle;
 	std::vector<float> previous_total;

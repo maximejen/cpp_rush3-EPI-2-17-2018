@@ -27,8 +27,12 @@ public:
 	virtual bool render(NcursesDisplay &display) const;
 	virtual bool render(GTKDisplay &display) const;
 	bool setup() override;
+	void event(int c) override;
+	bool isShow() const override;
 
 private:
+	void render_Ncurse(NcursesDisplay &display, Box const &b,
+	Vec &v) const;
 	std::string _username;
 	int _uid;
 	std::vector<gid_t> _groupGID;
@@ -37,6 +41,7 @@ private:
 	std::string _homePath;
 	std::string _defaultShell;
 	std::string _hostName;
+	bool show;
 };
 
 

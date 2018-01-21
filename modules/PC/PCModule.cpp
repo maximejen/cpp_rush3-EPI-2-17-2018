@@ -16,7 +16,8 @@ AMonitorModule("PCModule", x, y, w, h),
 osReleaseFile("/etc/os-release"),
 kernelOSReleaseFile("/proc/sys/kernel/osrelease"),
 kernelOSTypeFile("/proc/sys/kernel/ostype"),
-pcModelFile("/sys/devices/virtual/dmi/id/product_name")
+pcModelFile("/sys/devices/virtual/dmi/id/product_name"),
+show(true)
 {
 	this->reloadModule();
 }
@@ -42,6 +43,8 @@ const std::string &PCModule::getPCModel() const
 
 bool PCModule::render(NcursesDisplay &d) const
 {
+	if (!show)
+		return false;
 	Box b = calcAbsSizeTerm(getBox());
 	NcursesTool::drawBox(d, b, "Ordinateur");
 	Vec v(20,10);
@@ -92,4 +95,15 @@ void PCModule::reloadModule()
 			this->osInfos[tmp.substr(0, i)] =
 			tmp.substr(i + 1, tmp.size() - (i + 1));
 		}
+}
+
+void PCModule::event(int c)
+{
+	if (c == 'o')
+		show = !show;
+}
+
+bool PCModule::isShow() const
+{
+	return show;
 }
