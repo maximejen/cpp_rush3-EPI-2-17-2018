@@ -176,7 +176,6 @@ void NcursesTool::drawLineHist(size_t x, size_t y, Box const &b, int value)
 		int color = calculateColor(value);
 		if (i <= height) {
 			attron(COLOR_PAIR(color));
-			std::cerr << height << std::endl;
 			mvprintw(static_cast<int>(y - i),
 				 static_cast<int>(x), "#");
 		}
