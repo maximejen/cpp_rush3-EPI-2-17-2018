@@ -18,7 +18,7 @@ public:
 	const std::map<std::string, std::string> &getMemInfos() const;
 	void reloadData();
 	size_t getUsedMemory();
-	size_t getUsedMemoryPercentage();
+	size_t getUsedMemoryPercentage() const;
 	bool setup();
 
 private:
