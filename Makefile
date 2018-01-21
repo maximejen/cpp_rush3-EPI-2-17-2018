@@ -150,6 +150,33 @@ Parser.cpp.s:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/Parser.cpp.s
 .PHONY : Parser.cpp.s
 
+display/ModulePager.o: display/ModulePager.cpp.o
+
+.PHONY : display/ModulePager.o
+
+# target to build an object file
+display/ModulePager.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/display/ModulePager.cpp.o
+.PHONY : display/ModulePager.cpp.o
+
+display/ModulePager.i: display/ModulePager.cpp.i
+
+.PHONY : display/ModulePager.i
+
+# target to preprocess a source file
+display/ModulePager.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/display/ModulePager.cpp.i
+.PHONY : display/ModulePager.cpp.i
+
+display/ModulePager.s: display/ModulePager.cpp.s
+
+.PHONY : display/ModulePager.s
+
+# target to generate assembly for a file
+display/ModulePager.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/display/ModulePager.cpp.s
+.PHONY : display/ModulePager.cpp.s
+
 display/gtk/GTKDisplay.o: display/gtk/GTKDisplay.cpp.o
 
 .PHONY : display/gtk/GTKDisplay.o
@@ -312,6 +339,33 @@ modules/CPU/CPUModule.cpp.s:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/CPU/CPUModule.cpp.s
 .PHONY : modules/CPU/CPUModule.cpp.s
 
+modules/Network/NetworkModule.o: modules/Network/NetworkModule.cpp.o
+
+.PHONY : modules/Network/NetworkModule.o
+
+# target to build an object file
+modules/Network/NetworkModule.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/Network/NetworkModule.cpp.o
+.PHONY : modules/Network/NetworkModule.cpp.o
+
+modules/Network/NetworkModule.i: modules/Network/NetworkModule.cpp.i
+
+.PHONY : modules/Network/NetworkModule.i
+
+# target to preprocess a source file
+modules/Network/NetworkModule.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/Network/NetworkModule.cpp.i
+.PHONY : modules/Network/NetworkModule.cpp.i
+
+modules/Network/NetworkModule.s: modules/Network/NetworkModule.cpp.s
+
+.PHONY : modules/Network/NetworkModule.s
+
+# target to generate assembly for a file
+modules/Network/NetworkModule.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/Network/NetworkModule.cpp.s
+.PHONY : modules/Network/NetworkModule.cpp.s
+
 modules/PC/PCModule.o: modules/PC/PCModule.cpp.o
 
 .PHONY : modules/PC/PCModule.o
@@ -338,6 +392,33 @@ modules/PC/PCModule.s: modules/PC/PCModule.cpp.s
 modules/PC/PCModule.cpp.s:
 	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/PC/PCModule.cpp.s
 .PHONY : modules/PC/PCModule.cpp.s
+
+modules/RAM/RAMModule.o: modules/RAM/RAMModule.cpp.o
+
+.PHONY : modules/RAM/RAMModule.o
+
+# target to build an object file
+modules/RAM/RAMModule.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/RAM/RAMModule.cpp.o
+.PHONY : modules/RAM/RAMModule.cpp.o
+
+modules/RAM/RAMModule.i: modules/RAM/RAMModule.cpp.i
+
+.PHONY : modules/RAM/RAMModule.i
+
+# target to preprocess a source file
+modules/RAM/RAMModule.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/RAM/RAMModule.cpp.i
+.PHONY : modules/RAM/RAMModule.cpp.i
+
+modules/RAM/RAMModule.s: modules/RAM/RAMModule.cpp.s
+
+.PHONY : modules/RAM/RAMModule.s
+
+# target to generate assembly for a file
+modules/RAM/RAMModule.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_rush3.dir/build.make CMakeFiles/cpp_rush3.dir/modules/RAM/RAMModule.cpp.s
+.PHONY : modules/RAM/RAMModule.cpp.s
 
 modules/time/TimeModule.o: modules/time/TimeModule.cpp.o
 
@@ -405,6 +486,9 @@ help:
 	@echo "... Parser.o"
 	@echo "... Parser.i"
 	@echo "... Parser.s"
+	@echo "... display/ModulePager.o"
+	@echo "... display/ModulePager.i"
+	@echo "... display/ModulePager.s"
 	@echo "... display/gtk/GTKDisplay.o"
 	@echo "... display/gtk/GTKDisplay.i"
 	@echo "... display/gtk/GTKDisplay.s"
@@ -423,9 +507,15 @@ help:
 	@echo "... modules/CPU/CPUModule.o"
 	@echo "... modules/CPU/CPUModule.i"
 	@echo "... modules/CPU/CPUModule.s"
+	@echo "... modules/Network/NetworkModule.o"
+	@echo "... modules/Network/NetworkModule.i"
+	@echo "... modules/Network/NetworkModule.s"
 	@echo "... modules/PC/PCModule.o"
 	@echo "... modules/PC/PCModule.i"
 	@echo "... modules/PC/PCModule.s"
+	@echo "... modules/RAM/RAMModule.o"
+	@echo "... modules/RAM/RAMModule.i"
+	@echo "... modules/RAM/RAMModule.s"
 	@echo "... modules/time/TimeModule.o"
 	@echo "... modules/time/TimeModule.i"
 	@echo "... modules/time/TimeModule.s"

@@ -10,6 +10,7 @@
 #include "PC/PCModule.hpp"
 #include "time/TimeModule.hpp"
 #include "CPU/CPUModule.hpp"
+#include "Network/NetworkModule.hpp"
 #include "ModulePager.hpp"
 
 static const Box o_g[] = {
@@ -53,6 +54,12 @@ void ModulePager::initModule()
 	std::vector<AMonitorModule *> modCPU;
 	modCPU.push_back(new CPUModule(0, 0, 100, 100));
 	addPage("Informations processeurs", modCPU);
+	std::vector<AMonitorModule *> modNet;
+	modNet.push_back(new NetworkModule(0, 0, 100, 100));
+	addPage("Informations Network", modNet);
+//	std::vector<AMonitorModule *> modRAM;
+//	modRAM.push_back(new RAMModule(0, 0, 100, 100));
+//	addPage("Informations RAM", modRAM);
 }
 
 void ModulePager::inc()
