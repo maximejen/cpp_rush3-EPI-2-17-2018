@@ -34,7 +34,7 @@ private:
 	size_t histoIdx;
 	GtkWidget *_frame;
 	GtkWidget *_fixed;
-	GtkWidget *_graph;
+	GtkWidget *_label;
 	std::vector<std::vector<double>> histo;
 	std::vector<float> previous_idle;
 	std::vector<float> previous_total;

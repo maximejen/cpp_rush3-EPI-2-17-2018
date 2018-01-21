@@ -25,6 +25,10 @@ histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 	                            (h - 2) * 720 / 100);
 	_fixed = gtk_fixed_new();
 	gtk_container_add(GTK_CONTAINER(_frame), _fixed);
+
+	_label = gtk_label_new("");
+	gtk_fixed_put(GTK_FIXED(_fixed), _label, 10, 10);
+	gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
 	
 }
 
@@ -83,13 +87,21 @@ bool CPUModule::render(GTKDisplay &display) const
 		histo_int.push_back(newV);
 	}
 	std::string tag = "cpu";
+	std::string str = "";
 	for (i = 0; i < 4; i++) {
 		Histo h(i * getBox().getWidth() / nbGraphs, 0,
 		        getBox().getWidth() / nbGraphs, getBox().getHeigth(),
 		        histo_int[i], tag);
-		GTKGraph::drawHistoBox(_graph, getBox(), h);
+		std::reverse(histo_int[i].begin(), histo_int[i].end());
+		str += "<span size=\"large\">Usage:</span>: "
+		"<span size=\"x-large\"><b>";
+		str += (i < histo_int[i].size()) ? histo_int[i][0] : 0;
+		str += "</b></span>\n";
+		std::reverse(histo_int[i].begin(), histo_int[i].end());
 		tag = "cpu" + std::to_string(i);
 	}
+	gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
+	gtk_label_set_markup(GTK_LABEL(_label), str.c_str());
 	return true;
 }
 
