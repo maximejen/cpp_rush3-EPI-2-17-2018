@@ -19,6 +19,7 @@ public:
 	void reloadData();
 	size_t getUsedMemory();
 	size_t getUsedMemoryPercentage() const;
+	size_t getUsedSwapPercentage() const;
 	bool setup();
 
 private:

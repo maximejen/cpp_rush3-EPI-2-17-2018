@@ -26,14 +26,22 @@ bool RAMModule::render(NcursesDisplay &display) const
 {
 	Box b = calcAbsSizeTerm(getBox());
 	NcursesTool::drawBox(display, b, "Consomation RAM");
-	Percent p(10, 50, 80, getUsedMemoryPercentage());
+	Percent p(10, ((swap == 0) ? 50 : 33), 80, getUsedMemoryPercentage());
 	NcursesTool::drawPercent(display, b, p);
-	Vec v(45, 60);
+	Vec v(45, (swap == 0) ? 75 : 50);
 	std::stringstream s;
 	s << "Etat des RAM : " << getUsedMemoryPercentage() << "% ";
 	NcursesTool::drawText(display, b, v, s.str());
-	(void)display;
-	return false;
+	if (swap != 0) {
+		p.pos.setY(66);
+		p.value = getUsedSwapPercentage();
+		NcursesTool::drawPercent(display, b, p);
+		v.setY(75);
+		std::stringstream s;
+		s << "Etat du SWAP: " << getUsedSwapPercentage() << "% ";
+		NcursesTool::drawText(display, b, v, s.str());
+	}
+	return true;
 }
 
 bool RAMModule::render(GTKDisplay &display) const
@@ -90,4 +98,12 @@ size_t RAMModule::getUsedMemoryPercentage() const
 
 	used = this->max - this->available;
 	return used * 100 / this->max;
+}
+
+size_t RAMModule::getUsedSwapPercentage() const
+{
+	size_t used;
+
+	used = this->swap - this->swapfree;
+	return used * 100 / this->swap;
 }
