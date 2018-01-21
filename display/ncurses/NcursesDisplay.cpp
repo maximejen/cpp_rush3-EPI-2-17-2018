@@ -40,8 +40,9 @@ bool NcursesDisplay::render(ModulePager &mp)
 				return false;
 			if (!n->setup())
 				continue;
-			n->render(*this);
 			n->event(c);
+			mp.recalcModulesSize();
+			n->render(*this);
 		}
 		printPageInfo(mp);
 		refreshRender();

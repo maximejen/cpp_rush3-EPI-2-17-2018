@@ -24,6 +24,8 @@ public:
 	virtual bool render(GTKDisplay &display) const;
 	bool setup();
 	void reloadModule();
+	bool isShow() const override;
+	void event(int c) override;
 private:
 	std::string _type;
 	const std::string osReleaseFile;
@@ -33,6 +35,7 @@ private:
 	std::map<std::string, std::string> osInfos;
 	std::string kernelVersion;
 	std::string pcModel;
+	bool show;
 };
 
 #endif /* !CPP_RUSH3_PCMODULE_HPP_ */

@@ -29,6 +29,8 @@ public:
 	std::vector<AMonitorModule *> modules);
 	void initModule();
 	Page getCurPage() const;
+	void recalcModulesSize();
+	void recalcFollow(std::vector<AMonitorModule *> const &mod, int);
 	void inc();
 	void dec();
 
