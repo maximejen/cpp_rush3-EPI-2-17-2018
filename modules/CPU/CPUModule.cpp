@@ -18,18 +18,21 @@ AMonitorModule("CPUModule", x, y, w, h),
 cpu(std::thread::hardware_concurrency()), histo_idx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
+	cpu = 0;
 }
 
 CPUModule::CPUModule(const Box &box): AMonitorModule("CPUModule", box),
 cpu(std::thread::hardware_concurrency()), histo_idx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
+	cpu = 0;
 }
 
 bool CPUModule::render(NcursesDisplay &display) const
 {
-	size_t i;
 	auto nbGraphs = this->cpu + 1;
+	size_t i;
+	size_t start = (!this->cpu ? 0 : 1);
 	auto absBox = this->calcAbsSizeTerm(this->getBox());
 	std::vector<std::vector<int>> histo_int;
 	for (auto &n : this->histo) {
@@ -39,9 +42,9 @@ bool CPUModule::render(NcursesDisplay &display) const
 		histo_int.push_back(newV);
 	}
 	std::string tag = "cpu";
-	for (i = 0; i < this->histo.size(); i++) {
-		Histo h(i * 100 / nbGraphs, 0, 100 / nbGraphs,
-		        100, histo_int[i], tag);
+	for (i = (0 + start); i < nbGraphs; i++) {
+		Histo h((i - start) * 100 / (nbGraphs - start), 0, 100 /
+			(nbGraphs - start), 100, histo_int[i], tag);
 		NcursesTool::drawHisto(display, absBox, h);
 		tag = "cpu" + std::to_string(i);
 	}
@@ -125,6 +128,16 @@ void CPUModule::getModel()
 		if (std::regex_search(line, res, regex)) {
 			this->model = res[1];
 		}
+	}
+}
+
+void CPUModule::event(int c)
+{
+	if (c == 'c') {
+		if (cpu == 0)
+			cpu = std::thread::hardware_concurrency();
+		else
+			cpu = 0;
 	}
 }
 

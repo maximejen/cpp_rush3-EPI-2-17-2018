@@ -109,3 +109,8 @@ void TimeModule::event(int c)
 	if (c == 't')
 		_show = !_show;
 }
+
+bool TimeModule::isShow() const
+{
+	return _show;
+}

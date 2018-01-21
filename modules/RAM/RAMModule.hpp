@@ -18,9 +18,11 @@ public:
 	const std::map<std::string, std::string> &getMemInfos() const;
 	void reloadData();
 	size_t getUsedMemory();
-	size_t getUsedMemoryPercentage() const;
-	size_t getUsedSwapPercentage() const;
+	size_t getMemoryP() const;
+	size_t getSwapP() const;
 	bool setup();
+	void event(int c);
+	bool isShow() const override;
 
 private:
 	size_t max;
@@ -29,6 +31,7 @@ private:
 	size_t swap;
 	size_t swapfree;
 	std::map<std::string, std::string> memInfos;
+	bool show;
 };
 
 #endif //CPP_RUSH3_RAMMODULE_HPP_

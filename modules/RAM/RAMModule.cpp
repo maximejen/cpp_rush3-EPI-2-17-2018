@@ -13,7 +13,7 @@
 const std::string memInfosFile = "/proc/meminfo";
 
 RAMModule::RAMModule(int x, int y, int w, int h) :
-AMonitorModule("RAMModule", x, y, w, h)
+AMonitorModule("RAMModule", x, y, w, h), show(true)
 {
 	this->reloadData();
 }
@@ -24,24 +24,26 @@ RAMModule::~RAMModule()
 
 bool RAMModule::render(NcursesDisplay &display) const
 {
-	Box b = calcAbsSizeTerm(getBox());
-	NcursesTool::drawBox(display, b, "Consomation RAM");
-	Percent p(10, ((swap == 0) ? 50 : 33), 80, getUsedMemoryPercentage());
-	NcursesTool::drawPercent(display, b, p);
-	Vec v(45, (swap == 0) ? 75 : 50);
-	std::stringstream s;
-	s << "Etat des RAM : " << getUsedMemoryPercentage() << "% ";
-	NcursesTool::drawText(display, b, v, s.str());
-	if (swap != 0) {
-		p.pos.setY(66);
-		p.value = getUsedSwapPercentage();
+	if (show) {
+		Box b = calcAbsSizeTerm(getBox());
+		NcursesTool::drawBox(display, b, "Consomation RAM");
+		Percent p(10, ((swap == 0) ? 50 : 33), 80, getMemoryP());
 		NcursesTool::drawPercent(display, b, p);
-		v.setY(75);
+		Vec v(45, (swap == 0) ? 75 : 50);
 		std::stringstream s;
-		s << "Etat du SWAP: " << getUsedSwapPercentage() << "% ";
+		s << "Etat des RAM : " << getMemoryP() << "% ";
 		NcursesTool::drawText(display, b, v, s.str());
+		if (swap != 0) {
+			p.pos.setY(66);
+			p.value = getSwapP();
+			NcursesTool::drawPercent(display, b, p);
+			v.setY(75);
+			std::stringstream s;
+			s << "Etat du SWAP: " << getSwapP() << "% ";
+			NcursesTool::drawText(display, b, v, s.str());
+		}
 	}
-	return true;
+	return show;
 }
 
 bool RAMModule::render(GTKDisplay &display) const
@@ -92,7 +94,7 @@ size_t RAMModule::getUsedMemory()
 	return used;
 }
 
-size_t RAMModule::getUsedMemoryPercentage() const
+size_t RAMModule::getMemoryP() const
 {
 	size_t used;
 
@@ -100,10 +102,21 @@ size_t RAMModule::getUsedMemoryPercentage() const
 	return used * 100 / this->max;
 }
 
-size_t RAMModule::getUsedSwapPercentage() const
+size_t RAMModule::getSwapP() const
 {
 	size_t used;
 
 	used = this->swap - this->swapfree;
 	return used * 100 / this->swap;
+}
+
+void RAMModule::event(int c)
+{
+	if (c == 'r')
+		show = !show;
+}
+
+bool RAMModule::isShow() const
+{
+	return show;
 }

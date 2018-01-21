@@ -60,8 +60,11 @@ public:
 	virtual void clear(GTKDisplay &display) const;
 	virtual void event(int c);
 	virtual bool setup();
-	virtual const Box &getBox() const;
+	virtual bool isShow() const;
+	const Box &getBox() const;
+	void setBox(Box const &box);
 	Box calcAbsSizeTerm(Box const &b) const;
+
 protected:
 	std::string _type;
 	Box _box;

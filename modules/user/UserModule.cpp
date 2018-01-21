@@ -90,7 +90,7 @@ bool UserModule::render(NcursesDisplay &display) const
 	std::stringstream s;
 	s << _uid << "/" << _sid;
 	NcursesTool::drawText(display, b, v, "UID/SID : " +
-					     s.str() + " ");
+	s.str() + " ");
 	v.setY(45);
 	NcursesTool::drawText(display, b, v, "Dossier personnel : " +
 	_homePath + " ");
