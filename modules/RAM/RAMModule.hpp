@@ -17,6 +17,8 @@ public:
 	bool render(GTKDisplay &display) const;
 	const std::map<std::string, std::string> &getMemInfos() const;
 	void reloadData();
+	size_t getUsedMemory();
+	size_t getUsedMemoryPercentage();
 	bool setup();
 
 private:

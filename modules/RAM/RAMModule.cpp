@@ -65,3 +65,20 @@ bool RAMModule::setup()
 	this->reloadData();
 	return true;
 }
+
+size_t RAMModule::getUsedMemory()
+{
+	size_t used;
+
+	used = this->max - this->available;
+	std::cerr << used * 100 / this->max << std::endl;
+	return used;
+}
+
+size_t RAMModule::getUsedMemoryPercentage()
+{
+	size_t used;
+
+	used = this->max - this->available;
+	return used * 100 / this->max;
+}
