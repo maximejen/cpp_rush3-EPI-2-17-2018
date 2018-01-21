@@ -48,6 +48,7 @@ public:
 
 	static void drawHisto(NcursesDisplay const &disp, Box const &b,
 		Histo &h);
+	static int calculateColor(size_t height);
 
 private:
 	static void drawPointBox(NcursesDisplay const &disp,
