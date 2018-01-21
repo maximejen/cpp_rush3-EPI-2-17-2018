@@ -13,8 +13,8 @@
 #include "ncurses/tool/NcursesTool.hpp"
 #include "CPUModule.hpp"
 
-CPUModule::CPUModule(int x, int y, int w, int h)
-: AMonitorModule("CPUModule", x, y, w, h),
+CPUModule::CPUModule(int x, int y, int w, int h) :
+AMonitorModule("CPUModule", x, y, w, h),
 cpu(std::thread::hardware_concurrency()), histo_idx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {

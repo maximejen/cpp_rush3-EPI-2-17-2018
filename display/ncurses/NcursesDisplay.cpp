@@ -7,14 +7,13 @@
 #include <iostream>
 #include <time/TimeModule.hpp>
 #include <sys/ioctl.h>
+#include <RAM/RAMModule.hpp>
 #include "CPU/CPUModule.hpp"
 #include "PC/PCModule.hpp"
 #include "NcursesDisplay.hpp"
 
-NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
+NcursesDisplay::NcursesDisplay(): _mainwin()
 {
-	_modules.push_back(new CPUModule(0, 0, 100, 100));
-//	_modules.push_back(new TimeModule(0, 0, 50, 50));
 }
 
 bool NcursesDisplay::setup()
@@ -23,17 +22,18 @@ bool NcursesDisplay::setup()
 	noecho();
 	curs_set(0);
 	timeout(100);
+	keypad(stdscr, true);
 	return false;
 }
 
-bool NcursesDisplay::render()
+bool NcursesDisplay::render(ModulePager &mp)
 {
 	while (true) {
-		auto c = static_cast<char>(getch());
-		if (c == 'q')
+		auto c = getch();
+		if (!event(mp, c))
 			return false;
 		clearRender();
-		for (auto &n : _modules) {
+		for (auto &n : mp.getCurPage().module) {
 			struct winsize size;
 			if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
 				return false;
@@ -42,6 +42,7 @@ bool NcursesDisplay::render()
 			n->render(*this);
 			n->event(c);
 		}
+		printPageInfo(mp);
 		refreshRender();
 	}
 }
@@ -73,7 +74,30 @@ bool NcursesDisplay::clearRender()
 
 NcursesDisplay::~NcursesDisplay()
 {
-	for (auto &n : _modules) {
-		delete n;
+}
+
+bool NcursesDisplay::event(ModulePager &mp, int c)
+{
+	(void) mp;
+	if (c == 'q')
+		return false;
+	if (c == KEY_RIGHT)
+		mp.inc();
+	if (c == KEY_LEFT)
+		mp.dec();
+	return true;
+}
+
+void NcursesDisplay::printPageInfo(ModulePager const &mp)
+{
+	struct winsize size = {};
+	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0) {
+		std::cerr << "Cannot get term size" << std::endl;
+		exit(1);
 	}
+	Page p = mp.getCurPage();
+	auto x = (size.ws_col / 2) - ((p.name.size() + 2) / 2);
+	mvprintw(size.ws_row - 1, x, "[%s]", mp.getCurPage().name.c_str());
+	mvprintw(size.ws_row - 1, 0, "%c", '<');
+	mvprintw(size.ws_row - 1, size.ws_col - 1, "%c", '>');
 }

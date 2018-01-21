@@ -16,6 +16,8 @@ set(sources
         modules/time/TimeModule.hpp
         modules/PC/PCModule.cpp
         modules/PC/PCModule.hpp
+        modules/RAM/RAMModule.cpp
+        modules/RAM/RAMModule.hpp
         display/ncurses/NcursesDisplay.cpp
         display/ncurses/NcursesDisplay.hpp
         display/ncurses/tool/NcursesTool.cpp
@@ -23,7 +25,10 @@ set(sources
         display/ncurses/NcursesDisplay.hpp
         display/gtk/GTKDisplay.cpp
         display/gtk/GTKDisplay.hpp
-        Parser.cpp Parser.hpp modules/RAM/RAMModule.cpp modules/RAM/RAMModule.hpp)
+        Parser.cpp
+        Parser.hpp
+        display/ModulePager.cpp
+        display/ModulePager.hpp)
 
 add_executable(cpp_rush3 ${sources})
 

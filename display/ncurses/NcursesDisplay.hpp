@@ -11,6 +11,7 @@
 	#include <ncurses.h>
 	#include <vector>
 	#include <map>
+	#include "ModulePager.hpp"
 	#include "AMonitorModule.hpp"
 	#include "IMonitorDisplay.hpp"
 
@@ -22,14 +23,17 @@ public:
 	NcursesDisplay();
 	virtual ~NcursesDisplay();
 	bool setup();
-	bool render();
+	bool render(ModulePager &mp);
+	bool event(ModulePager &mp, int c);
 	bool refreshRender();
 	bool teardown();
 	bool clearRender();
+	void printPageInfo(ModulePager const &mp);
 	WINDOW *getWindow() const;
+
 private:
 	WINDOW *_mainwin;
-	std::vector<AMonitorModule *> _modules;
+//	std::vector<AMonitorModule *> _modules;
 };
 
 #endif /* !CPP_RUSH3_NCURSESDISPLAY_HPP */

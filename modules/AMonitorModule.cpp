@@ -72,6 +72,7 @@ Box AMonitorModule::calcAbsSizeTerm(Box const &b) const
 		std::cerr << "Cannot get term size" << std::endl;
 		exit(1);
 	}
+	size.ws_row = static_cast<unsigned short>(size.ws_row - 1);
 	auto posX = static_cast<int>(size.ws_col *
 		(static_cast<float>(b.getX()) / 100));
 	auto posY = static_cast<int>(size.ws_row *
@@ -79,11 +80,11 @@ Box AMonitorModule::calcAbsSizeTerm(Box const &b) const
 	auto width = static_cast<int>(size.ws_col *
 		(static_cast<float>(b.getWidth()) / 100));
 	auto height = static_cast<int>(size.ws_row *
-	(static_cast<float>(b.getHeigth()) / 100));;
+	(static_cast<float>(b.getHeigth()) / 100));
 	return Box(posX, posY, width, height);
 }
 
-void AMonitorModule::event(char)
+void AMonitorModule::event(int)
 {
 }
 

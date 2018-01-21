@@ -165,13 +165,38 @@ void NcursesTool::drawLineHist(size_t x, size_t y, Box const &b, int value)
 {
 	auto height = static_cast<size_t>((b.getHeigth() - 3) *
 					static_cast<float>(value) / 100);
-	for (size_t i = 0; i <= b.getHeigth() - 3; i++)
-		if (i <= height)
+	start_color();
+	init_pair(0, COLOR_BLACK, COLOR_BLACK);
+	init_pair(1, COLOR_GREEN, COLOR_GREEN);
+	init_pair(2, COLOR_YELLOW, COLOR_YELLOW);
+	init_pair(3, COLOR_RED, COLOR_RED);
+	init_pair(4, COLOR_WHITE, COLOR_WHITE);
+	init_pair(5, 40, 40);
+	for (size_t i = 0; i <= b.getHeigth() - 3; i++) {
+		int color = calculateColor(value);
+		if (i <= height) {
+			attron(COLOR_PAIR(color));
 			mvprintw(static_cast<int>(y - i),
-				static_cast<int>(x), "#");
+				 static_cast<int>(x), "#");
+		}
 		else
 			mvprintw(static_cast<int>(y - i),
-				static_cast<int>(x), " ");
+				 static_cast<int>(x), " ");
+		attroff(COLOR_PAIR(color));
+	}
+}
+
+int NcursesTool::calculateColor(size_t height)
+{
+	int color = 1;
+
+	if (height >= 66) {
+		color = 3;
+	}
+	else if (height >= 33) {
+		color = 2;
+	}
+	return color;
 }
 
 Percent::Percent(size_t x, size_t y, size_t width, size_t value)

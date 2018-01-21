@@ -41,10 +41,10 @@ bool GTKDisplay::setup()
 	return true;
 }
 
-bool GTKDisplay::render()
+bool GTKDisplay::render(ModulePager &mp)
 {
 	while (true) {
-		for (auto &e : _modules)
+		for (auto &e : mp.getCurPage().module)
 			if (e->setup())
 				e->render(*this);
 		gtk_widget_show_all(_window);
