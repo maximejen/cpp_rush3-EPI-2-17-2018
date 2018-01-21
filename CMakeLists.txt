@@ -16,6 +16,8 @@ set(sources
         modules/time/TimeModule.hpp
         modules/PC/PCModule.cpp
         modules/PC/PCModule.hpp
+        modules/RAM/RAMModule.cpp
+        modules/RAM/RAMModule.hpp
         display/ncurses/NcursesDisplay.cpp
         display/ncurses/NcursesDisplay.hpp
         display/ncurses/tool/NcursesTool.cpp
