@@ -57,9 +57,6 @@ void ModulePager::initModule()
 	std::vector<AMonitorModule *> modNet;
 	modNet.push_back(new NetworkModule(0, 0, 100, 100));
 	addPage("Informations Network", modNet);
-//	std::vector<AMonitorModule *> modRAM;
-//	modRAM.push_back(new RAMModule(0, 0, 100, 100));
-//	addPage("Informations RAM", modRAM);
 }
 
 void ModulePager::inc()
