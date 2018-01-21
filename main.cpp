@@ -12,8 +12,8 @@
 int main(int argc, char **argv)
 {
 	Parser parser;
-	gtk_init(&argc, &argv);
 	if (parser.ProcessArgs(argc, argv)) {
+		gtk_init(&argc, &argv);
 		GTKDisplay display;
 		display.setup();
 		display.render();

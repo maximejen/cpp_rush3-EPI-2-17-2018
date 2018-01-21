@@ -158,7 +158,8 @@ Histo &h)
 		j--;
 		i += 1;
 	}
-	h.data.erase(h.data.begin(), h.data.begin() + j);
+	if (j > 0)
+		h.data.erase(h.data.begin(), h.data.begin() + j);
 }
 
 void NcursesTool::drawLineHist(size_t x, size_t y, Box const &b, int value)
