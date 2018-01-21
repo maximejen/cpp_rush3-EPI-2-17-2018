@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <ncurses/tool/NcursesTool.hpp>
 #include "RAMModule.hpp"
 
 const std::string memInfosFile = "/proc/meminfo";
@@ -23,6 +24,14 @@ RAMModule::~RAMModule()
 
 bool RAMModule::render(NcursesDisplay &display) const
 {
+	Box b = calcAbsSizeTerm(getBox());
+	NcursesTool::drawBox(display, b, "Consomation RAM");
+	Percent p(10, 50, 80, getUsedMemoryPercentage());
+	NcursesTool::drawPercent(display, b, p);
+	Vec v(45, 60);
+	std::stringstream s;
+	s << "Etat des RAM : " << getUsedMemoryPercentage() << "% ";
+	NcursesTool::drawText(display, b, v, s.str());
 	(void)display;
 	return false;
 }
@@ -64,4 +73,21 @@ bool RAMModule::setup()
 {
 	this->reloadData();
 	return true;
+}
+
+size_t RAMModule::getUsedMemory()
+{
+	size_t used;
+
+	used = this->max - this->available;
+	std::cerr << used * 100 / this->max << std::endl;
+	return used;
+}
+
+size_t RAMModule::getUsedMemoryPercentage() const
+{
+	size_t used;
+
+	used = this->max - this->available;
+	return used * 100 / this->max;
 }
