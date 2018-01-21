@@ -17,7 +17,6 @@ class PCModule : public AMonitorModule {
 public:
 	explicit PCModule(int x, int y, int w, int h);
 	~PCModule();
-	bool render(IMonitorDisplay &display) const;
 	const std::map<std::string, std::string> &getOsInfos() const;
 	const std::string &getKernelVersion() const;
 	const std::string &getPCModel() const;
@@ -27,11 +26,10 @@ public:
 	void reloadModule();
 private:
 	std::string _type;
-	const std::string osReleaseFile = "/etc/os-release";
-	const std::string kernelOSReleaseFile = "/proc/sys/kernel/osrelease";
-	const std::string kernelOSTypeFile = "/proc/sys/kernel/ostype";
-	const std::string pcModelFile =
-	"/sys/devices/virtual/dmi/id/product_name";
+	const std::string osReleaseFile;
+	const std::string kernelOSReleaseFile;
+	const std::string kernelOSTypeFile;
+	const std::string pcModelFile;
 	std::map<std::string, std::string> osInfos;
 	std::string kernelVersion;
 	std::string pcModel;
