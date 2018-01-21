@@ -100,8 +100,6 @@ bool CPUModule::render(GTKDisplay &display) const
 		std::reverse(histo_int[i].begin(), histo_int[i].end());
 		tag = "cpu" + std::to_string(i);
 	}
-	gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
-	gtk_label_set_markup(GTK_LABEL(_label), str.c_str());
 	return true;
 }
 
