@@ -115,12 +115,7 @@ Percent &p)
 		lenTot -= (pos.getX() + lenTot + 1) - (b.getWidth() - 2);
 	auto len =
 	static_cast<size_t>(lenTot * (static_cast<float>(p.value) / 100));
-	for (size_t i = 0; i <= lenTot; i++)
-		mvprintw(b.getY() + 1 + pos.getY(),
-			 b.getX() + 1 + pos.getX() + i, (i <= len) ? "#" : " ");
-	mvprintw(b.getY() + 1 + pos.getY(), b.getX() + 1 + pos.getX(), "[");
-	mvprintw(b.getY() + 1 + pos.getY(), b.getX() + 1 + pos.getX() + lenTot,
-		 "]");
+	drawBarElements(lenTot, b, pos, len);
 }
 
 void NcursesTool::drawPercent(Percent &p)
@@ -169,6 +164,7 @@ void NcursesTool::drawLineHist(size_t x, size_t y, Box const &b, int value)
 	init_pair(0, COLOR_BLACK, COLOR_BLACK);
 	init_pair(1, COLOR_GREEN, COLOR_GREEN);
 	init_pair(2, COLOR_YELLOW, COLOR_YELLOW);
+	init_color(COLOR_RED, 750, 0, 0);
 	init_pair(3, COLOR_RED, COLOR_RED);
 	init_pair(4, COLOR_WHITE, COLOR_WHITE);
 	init_pair(5, 40, 40);
@@ -197,6 +193,31 @@ int NcursesTool::calculateColor(size_t height)
 		color = 2;
 	}
 	return color;
+}
+
+void NcursesTool::drawBarElements(size_t lenTot, const Box &b, Vec pos,
+size_t len)
+{
+	start_color();
+	init_pair(0, COLOR_BLACK, COLOR_BLACK);
+	init_pair(1, COLOR_GREEN, COLOR_GREEN);
+	init_pair(2, COLOR_YELLOW, COLOR_YELLOW);
+	init_color(COLOR_RED, 750, 0, 0);
+	init_pair(3, COLOR_RED, COLOR_RED);
+	int x = static_cast<int>(b.getX() + 1 + pos.getX());
+	int y = static_cast<int>(b.getY() + 1 + pos.getY());
+
+	for (size_t i = 0; i <= lenTot; i++) {
+		size_t tmp = x + i * 100 / lenTot;
+		if (i <= len) {
+			attron(COLOR_PAIR(calculateColor(tmp)));
+			mvprintw(y, static_cast<int>(x + i), "#");
+			attroff(COLOR_PAIR(calculateColor(tmp)));
+		} else
+			mvprintw(y, static_cast<int>(x + i), " ");
+	}
+	mvprintw(y, x, "[");
+	mvprintw(y, static_cast<int>(x + lenTot), "]");
 }
 
 Percent::Percent(size_t x, size_t y, size_t width, size_t value)
