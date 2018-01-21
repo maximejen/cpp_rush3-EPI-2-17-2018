@@ -6,14 +6,14 @@
 */
 
 #ifndef CPP_RUSH3_USERMODULE_HPP
-	#define CPP_RUSH3_USERMODULE_HPP
+#define CPP_RUSH3_USERMODULE_HPP
 
-	#include <string>
-	#include <AMonitorModule.hpp>
-	#include <vector>
+#include <string>
+#include <AMonitorModule.hpp>
+#include <vector>
 
 class UserModule : public AMonitorModule {
-public:
+      public:
 	UserModule(int x, int y, int w, int h);
 	~UserModule();
 	const std::string &getUsername() const;
@@ -33,6 +33,7 @@ public:
 private:
 	void render_Ncurse(NcursesDisplay &display, Box const &b,
 	Vec &v) const;
+	std::string buildLabels(std::string &_str);
 	std::string _username;
 	int _uid;
 	std::vector<gid_t> _groupGID;
@@ -42,7 +43,10 @@ private:
 	std::string _defaultShell;
 	std::string _hostName;
 	bool show;
+	bool _loaded;
+	GtkWidget *_frame;
+	GtkWidget *_fixed;
+	GtkWidget *_label;
 };
-
 
 #endif /* !CPP_RUSH3_USERMODULE_HPP */

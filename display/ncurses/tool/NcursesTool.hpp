@@ -6,12 +6,12 @@
 */
 
 #ifndef CPP_RUSH3_NCURSESTOOL_HPP
-	#define CPP_RUSH3_NCURSESTOOL_HPP
+#define CPP_RUSH3_NCURSESTOOL_HPP
 
-	#include <string>
-	#include <vector>
-	#include "AMonitorModule.hpp"
-	#include "ncurses/NcursesDisplay.hpp"
+#include <string>
+#include <vector>
+#include "AMonitorModule.hpp"
+#include "ncurses/NcursesDisplay.hpp"
 
 struct Percent {
 	Percent() = default;
@@ -23,27 +23,29 @@ struct Percent {
 
 struct Histo {
 	Histo() = default;
+	Histo(const Histo &) = default;
 	Histo(size_t x, size_t y, size_t width, size_t height,
 		std::vector<int> &data,	std::string const &name = "");
+	Histo &operator=(const Histo &) = default;
 	Box box;
 	std::vector<int> data;
 	std::string const title;
 };
 
 class NcursesTool {
-public:
+      public:
 	NcursesTool(NcursesDisplay &disp, Box const &box);
 
 	static void drawBox(NcursesDisplay const &disp, Box const &b,
-		std::string const &title = "");
+	                    std::string const &title = "");
 	void drawBox(std::string const &title = "");
 
 	static void drawText(NcursesDisplay const &disp, Box const &b,
-		Vec const &v, std::string const &text);
+	                     Vec const &v, std::string const &text);
 	void drawText(Vec const &v, std::string const &text);
 
 	static void drawPercent(NcursesDisplay const &disp, Box const &b,
-		Percent &p);
+	                        Percent &p);
 	void drawPercent(Percent &p);
 
 	static void drawHisto(NcursesDisplay const &disp, Box const &b,
@@ -52,11 +54,11 @@ public:
 	static void drawBarElements(size_t, const Box &, Vec, size_t);
 	static void addSpecialBracket(int x, int y, bool end);
 
-private:
-	static void drawPointBox(NcursesDisplay const &disp,
-		Box const &b, size_t x, size_t y);
-	static Box drawHistoBox(NcursesDisplay const &disp,
-		Box const &b, Histo const &h);
+      private:
+	static void drawPointBox(NcursesDisplay const &disp, Box const &b,
+	                         size_t x, size_t y);
+	static Box drawHistoBox(NcursesDisplay const &disp, Box const &b,
+	                        Histo const &h);
 	static void drawLineHist(size_t x, size_t y, Box const &b, int value);
 	static bool isIn(size_t a, size_t rA = 0, size_t rB = 100);
 	static Vec calcCoordinate(Box const &b, Vec const &v, int shift = 3);

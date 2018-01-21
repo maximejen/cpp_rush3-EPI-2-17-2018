@@ -5,13 +5,15 @@
 ** ModulePager.cpp
 */
 
-#include "user/UserModule.hpp"
-#include "RAM/RAMModule.hpp"
+#include "ModulePager.hpp"
+#include "CPU/CPUModule.hpp"
 #include "PC/PCModule.hpp"
+#include "RAM/RAMModule.hpp"
 #include "time/TimeModule.hpp"
 #include "CPU/CPUModule.hpp"
 #include "Network/NetworkModule.hpp"
 #include "ModulePager.hpp"
+#include "user/UserModule.hpp"
 
 static const Box o_g[] = {
 {0, 0, 50, 100},
@@ -32,14 +34,14 @@ ModulePager::ModulePager(): _currentPage(0)
 }
 
 void ModulePager::addPage(std::string const &name,
-std::vector<AMonitorModule *> modules)
+                          std::vector<AMonitorModule *> modules)
 {
 	Page p(name, modules);
 	_pages.push_back(p);
 }
 
-Page::Page(std::string const &name, std::vector<AMonitorModule *> modules) :
-name(name), module(modules)
+Page::Page(std::string const &name, std::vector<AMonitorModule *> modules)
+    : name(name), module(modules)
 {
 }
 
@@ -52,7 +54,8 @@ void ModulePager::initModule()
 	modGeneral.push_back(new UserModule(50, 50, 50, 50));
 	addPage("Informations generales", modGeneral);
 	std::vector<AMonitorModule *> modCPU;
-	modCPU.push_back(new CPUModule(0, 0, 100, 100));
+	modCPU.push_back(new RAMModule(20, 20, 60, 60));
+	// modCPU.push_back(new CPUModule(0, 0, 100, 100));
 	addPage("Informations processeurs", modCPU);
 	std::vector<AMonitorModule *> modNet;
 	modNet.push_back(new NetworkModule(0, 0, 100, 100));
@@ -83,7 +86,7 @@ ModulePager::~ModulePager()
 {
 	for (auto &i : _pages)
 		for (auto &d : i.module)
-			delete(d);
+			delete (d);
 }
 
 void ModulePager::recalcModulesSize()

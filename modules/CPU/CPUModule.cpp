@@ -5,13 +5,14 @@
 ** CPUModule.cpp
 */
 
-#include <thread>
-#include <numeric>
-#include <iostream>
-#include <sstream>
-#include <regex>
-#include "ncurses/tool/NcursesTool.hpp"
 #include "CPUModule.hpp"
+#include "gtk/GTKGraph.hpp"
+#include "ncurses/tool/NcursesTool.hpp"
+#include <iostream>
+#include <numeric>
+#include <regex>
+#include <sstream>
+#include <thread>
 
 CPUModule::CPUModule(int x, int y, int w, int h) :
 AMonitorModule("CPUModule", x, y, w, h),
@@ -19,6 +20,12 @@ cpu(std::thread::hardware_concurrency()), histoIdx(),
 histo(cpu + 1), previous_idle(cpu + 1), previous_total(cpu + 1)
 {
 	cpu = 0;
+	_frame = gtk_frame_new("CPU Module");
+	gtk_widget_set_size_request(GTK_WIDGET(_frame), (w - 2) * 1280 / 100,
+	                            (h - 2) * 720 / 100);
+	_fixed = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(_frame), _fixed);
+	
 }
 
 CPUModule::CPUModule(const Box &box): AMonitorModule("CPUModule", box),
@@ -62,8 +69,28 @@ Box const &b) const
 
 bool CPUModule::render(GTKDisplay &display) const
 {
-	(void)display;
-	return false;
+	if (!display.isIn(this)) {
+		display.addToDisplay(this, _frame, getBox().getX() + 1,
+		                     getBox().getY() + 1);
+	}
+	size_t i;
+	auto nbGraphs = this->cpu + 1;
+	std::vector<std::vector<int>> histo_int;
+	for (auto &n : this->histo) {
+		auto newV = std::vector<int>();
+		for (auto &a : n)
+			newV.push_back(static_cast<int>(a));
+		histo_int.push_back(newV);
+	}
+	std::string tag = "cpu";
+	for (i = 0; i < 4; i++) {
+		Histo h(i * getBox().getWidth() / nbGraphs, 0,
+		        getBox().getWidth() / nbGraphs, getBox().getHeigth(),
+		        histo_int[i], tag);
+		GTKGraph::drawHistoBox(_graph, getBox(), h);
+		tag = "cpu" + std::to_string(i);
+	}
+	return true;
 }
 
 void CPUModule::clear(NcursesDisplay &display) const
@@ -151,4 +178,3 @@ void CPUModule::event(int c)
 			cpu = 0;
 	}
 }
-

@@ -6,15 +6,15 @@
 */
 
 #ifndef CPP_RUSH3_CPUMODULE_HPP
-	#define CPP_RUSH3_CPUMODULE_HPP
+#define CPP_RUSH3_CPUMODULE_HPP
 
-	#include <fstream>
-	#include "AMonitorModule.hpp"
-	#include "gtk/GTKDisplay.hpp"
-	#include "ncurses/NcursesDisplay.hpp"
+#include <fstream>
+#include "AMonitorModule.hpp"
+#include "gtk/GTKDisplay.hpp"
+#include "ncurses/NcursesDisplay.hpp"
 
 class CPUModule : public AMonitorModule {
-public:
+      public:
 	CPUModule(int x, int y, int w, int h);
 	explicit CPUModule(const Box &box);
 	bool render(NcursesDisplay &display) const override;
@@ -32,12 +32,14 @@ private:
 	void getFrequence();
 	size_t cpu;
 	size_t histoIdx;
+	GtkWidget *_frame;
+	GtkWidget *_fixed;
+	GtkWidget *_graph;
 	std::vector<std::vector<double>> histo;
 	std::vector<float> previous_idle;
 	std::vector<float> previous_total;
 	std::string model;
 	std::string frequence;
 };
-
 
 #endif /* !CPP_RUSH3_CPUMODULE_HPP */

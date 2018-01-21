@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 NcursesTool::NcursesTool(NcursesDisplay &disp, Box const &box)
-: _disp(disp), _box(box)
+    : _disp(disp), _box(box)
 {
 }
 
@@ -29,9 +29,9 @@ Vec NcursesTool::calcCoordinate(Box const &b, Vec const &v, int shift)
 }
 
 void NcursesTool::drawBox(NcursesDisplay const &disp, Box const &b,
-std::string const &title)
+                          std::string const &title)
 {
-	(void) disp;
+	(void)disp;
 	std::string t(title);
 	size_t xTitle;
 	for (size_t y = b.getY(); y < b.getAbsoluteH(); y++)
@@ -42,25 +42,24 @@ std::string const &title)
 		if (t.size() >= b.getWidth() - 2)
 			t = "[.]";
 		xTitle =
-		static_cast<size_t>((b.getWidth() / 2) - (t.length() / 2));
+		    static_cast<size_t>((b.getWidth() / 2) - (t.length() / 2));
 		mvprintw(b.getY(), b.getX() + xTitle, "%s", t.c_str());
 	}
 }
 
 void NcursesTool::drawPointBox(NcursesDisplay const &disp, Box const &b,
-size_t x, size_t y)
+                               size_t x, size_t y)
 {
 	(void)disp;
 	std::map<std::pair<size_t, size_t>, int> map = {
-	{std::pair<size_t, size_t>
-	 (b.getX(), b.getY()),                         ACS_ULCORNER},
-	{std::pair<size_t, size_t>
-	 (b.getAbsoluteW() - 1, b.getY()),             ACS_URCORNER},
-	{std::pair<size_t, size_t>
-	 (b.getX(), b.getAbsoluteH() - 1),             ACS_LLCORNER},
-	{std::pair<size_t, size_t>
-	 (b.getAbsoluteW() - 1, b.getAbsoluteH() - 1), ACS_LRCORNER}
-	};
+	    {std::pair<size_t, size_t>(b.getX(), b.getY()), ACS_ULCORNER},
+	    {std::pair<size_t, size_t>(b.getAbsoluteW() - 1, b.getY()),
+	     ACS_URCORNER},
+	    {std::pair<size_t, size_t>(b.getX(), b.getAbsoluteH() - 1),
+	     ACS_LLCORNER},
+	    {std::pair<size_t, size_t>(b.getAbsoluteW() - 1,
+	                               b.getAbsoluteH() - 1),
+	     ACS_LRCORNER}};
 
 	std::pair<size_t, size_t> vec(x, y);
 	auto it = map.find(vec);
@@ -73,22 +72,21 @@ size_t x, size_t y)
 }
 
 void NcursesTool::drawText(NcursesDisplay const &disp, Box const &b,
-Vec const &v, const std::string &text)
+                           Vec const &v, const std::string &text)
 {
 	std::string t(text);
 
-	(void) disp;
+	(void)disp;
 	if (!isIn(v.getX(), 0, 100) || !isIn(v.getY(), 0, 100))
 		return;
 	auto pos = calcCoordinate(b, v);
 	if (pos.getX() + 1 + text.length() >= b.getWidth())
-		t = t.substr(0, text.length() -
-				(pos.getX() + 2 + text.length() -
-				 b.getWidth()));
+		t = t.substr(0, text.length() - (pos.getX() + 2 +
+		                                 text.length() - b.getWidth()));
 	else
 		t = t.substr(0, text.length() - 1);
-	mvprintw(b.getY() + pos.getY() + 1,
-		 b.getX() + pos.getX() + 1, "%s", t.c_str());
+	mvprintw(b.getY() + pos.getY() + 1, b.getX() + pos.getX() + 1, "%s",
+	         t.c_str());
 }
 
 void NcursesTool::drawBox(const std::string &title)
@@ -102,15 +100,15 @@ void NcursesTool::drawText(Vec const &v, std::string const &text)
 }
 
 void NcursesTool::drawPercent(NcursesDisplay const &disp, Box const &b,
-Percent &p)
+                              Percent &p)
 {
-	(void) disp;
+	(void)disp;
 	if (!isIn(p.pos.getX()) || !isIn(p.pos.getY()) || !isIn(p.width) ||
 	    !isIn(p.value))
 		return;
 	auto pos = calcCoordinate(b, p.pos);
 	auto lenTot = static_cast<size_t>(
-	p.width * (static_cast<float>(b.getWidth()) / 100.0));
+	    p.width * (static_cast<float>(b.getWidth()) / 100.0));
 	if (pos.getX() + lenTot >= b.getWidth() - 2)
 		lenTot -= (pos.getX() + lenTot + 1) - (b.getWidth() - 2);
 	auto len =
@@ -124,31 +122,31 @@ void NcursesTool::drawPercent(Percent &p)
 }
 
 Box NcursesTool::drawHistoBox(NcursesDisplay const &disp, Box const &b,
-Histo const &h)
+                              Histo const &h)
 {
-	(void) disp;
+	(void)disp;
 	Vec pRel(h.box.getX(), h.box.getY());
 	Vec pAbs = calcCoordinate(b, pRel, 0);
 	auto width = static_cast<int>(
-	b.getWidth() * (static_cast<float>(h.box.getWidth()) / 100));
+	    b.getWidth() * (static_cast<float>(h.box.getWidth()) / 100));
 	auto height = static_cast<int>(
-	b.getHeigth() * (static_cast<float>(h.box.getHeigth()) / 100));
+	    b.getHeigth() * (static_cast<float>(h.box.getHeigth()) / 100));
 	Box box(b.getX() + pAbs.getX(), b.getY() + pAbs.getY(), width, height);
 	drawBox(disp, box, h.title);
 	return box;
 }
 
-void NcursesTool::drawHisto(NcursesDisplay const &disp, Box const &b,
-Histo &h)
+void NcursesTool::drawHisto(NcursesDisplay const &disp, Box const &b, Histo &h)
 {
+	(void)disp;
 	if (!isIn(h.box.getX()) || !isIn(h.box.getY()))
 		return;
 	size_t i = 0;
 	int j = static_cast<int>(h.data.size()) - 1;
 	Box box = drawHistoBox(disp, b, h);
 	while (j >= 0 && i < box.getWidth() - 2) {
-		drawLineHist(box.getAbsoluteW() - 2 - i,
-			     box.getAbsoluteH() - 2, box, h.data[j]);
+		drawLineHist(box.getAbsoluteW() - 2 - i, box.getAbsoluteH() - 2,
+		             box, h.data[j]);
 		j--;
 		i += 1;
 	}
@@ -230,12 +228,12 @@ void NcursesTool::addSpecialBracket(int x, int y, bool end)
 }
 
 Percent::Percent(size_t x, size_t y, size_t width, size_t value)
-: pos(x, y), width(width), value(value)
+    : pos(x, y), width(width), value(value)
 {
 }
 
 Histo::Histo(size_t x, size_t y, size_t width, size_t height,
-std::vector<int> &data, std::string const &title)
-: box(x, y, width, height), data(data), title(title)
+             std::vector<int> &data, std::string const &title)
+    : box(x, y, width, height), data(data), title(title)
 {
 }

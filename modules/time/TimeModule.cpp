@@ -11,15 +11,14 @@
 #include <iostream>
 #include <ncurses/tool/NcursesTool.hpp>
 #include <sstream>
-#include "TimeModule.hpp"
 
 TimeModule::TimeModule(int x, int y, int w, int h)
 : AMonitorModule("TimeModule", x, y, w, h),
 uptimeFile("/proc/uptime"), _show(true)
 {
 	_frame = gtk_frame_new("Time Module");
-	gtk_widget_set_size_request(GTK_WIDGET(_frame), getBox().getWidth(),
-				    getBox().getHeigth());
+	gtk_widget_set_size_request(GTK_WIDGET(_frame), (w - 2) * 1280 / 100,
+	                            (h - 2) * 720 / 100);
 	_fixed = gtk_fixed_new();
 	gtk_container_add(GTK_CONTAINER(_frame), _fixed);
 	_str = "Uptime: <span size=\"x-large\"><b>";
@@ -30,7 +29,6 @@ uptimeFile("/proc/uptime"), _show(true)
 	_label = gtk_label_new(_str.c_str());
 	gtk_label_set_use_markup(GTK_LABEL(_label), TRUE);
 	gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
-	gtk_fixed_put(GTK_FIXED(_fixed), _label, 20, 5);
 }
 
 std::string TimeModule::getUpTime() const
@@ -62,10 +60,11 @@ std::string TimeModule::getDate() const
 bool TimeModule::render(GTKDisplay &display) const
 {
 	if (!display.isIn(this)) {
-		display.addToDisplay(this, _frame, getBox().getX(),
-				     getBox().getY());
+		display.addToDisplay(this, _frame, getBox().getX() + 1,
+		                     getBox().getY() + 1);
 	}
 	gtk_label_set_markup(GTK_LABEL(_label), _str.c_str());
+	gtk_fixed_put(GTK_FIXED(_fixed), _label, 20, 5);
 	return true;
 }
 
@@ -84,12 +83,12 @@ bool TimeModule::render(NcursesDisplay &display) const
 
 void TimeModule::clear(NcursesDisplay &display) const
 {
-	(void) display;
+	(void)display;
 }
 
 void TimeModule::clear(GTKDisplay &display) const
 {
-	(void) display;
+	(void)display;
 }
 
 bool TimeModule::setup()
