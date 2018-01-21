@@ -33,7 +33,6 @@ public:
 
 private:
 	WINDOW *_mainwin;
-//	std::vector<AMonitorModule *> _modules;
 };
 
 #endif /* !CPP_RUSH3_NCURSESDISPLAY_HPP */
