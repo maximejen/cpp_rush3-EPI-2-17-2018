@@ -13,8 +13,12 @@
 
 NcursesDisplay::NcursesDisplay(): _mainwin(), _modules()
 {
+	struct winsize size;
+	if (ioctl(0, TIOCGWINSZ, (char *) &size) < 0)
+		exit(84);
 //	_modules.push_back(new PCModule(0, 0, 0, 0));
-	_modules.push_back(new TimeModule(0, 0, 50, 50));
+//	_modules.push_back(new TimeModule(0, 0, 50, 5));
+	_modules.push_back(new CPUModule(0, 0, size.ws_col, size.ws_row));
 
 }
 
@@ -23,7 +27,6 @@ bool NcursesDisplay::setup()
 	_mainwin = initscr();
 	noecho();
 	curs_set(0);
-	timeout(100);
 	return false;
 }
 
