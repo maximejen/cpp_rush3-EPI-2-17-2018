@@ -14,7 +14,8 @@
 #include "TimeModule.hpp"
 
 TimeModule::TimeModule(int x, int y, int w, int h)
-: AMonitorModule("TimeModule", x, y, w, h), _show(true)
+: AMonitorModule("TimeModule", x, y, w, h),
+uptimeFile("/proc/uptime"), _show(true)
 {
 	_frame = gtk_frame_new("Time Module");
 	gtk_widget_set_size_request(GTK_WIDGET(_frame), getBox().getWidth(),
