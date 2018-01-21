@@ -28,7 +28,6 @@ bool NcursesDisplay::setup()
 
 bool NcursesDisplay::render(ModulePager &mp)
 {
-	RAMModule r(0, 0, 0, 0);
 	while (true) {
 		auto c = getch();
 		if (!event(mp, c))

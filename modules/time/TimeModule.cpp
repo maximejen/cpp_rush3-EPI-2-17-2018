@@ -73,10 +73,10 @@ bool TimeModule::render(NcursesDisplay &display) const
 	if (!_show)
 		return false;
 	Box b = calcAbsSizeTerm(getBox());
-	Vec v(10, 10);
-	NcursesTool::drawBox(display, b);
+	Vec v(10, 33);
+	NcursesTool::drawBox(display, b, "Infos Dates");
 	NcursesTool::drawText(display, b, v, "Date: " + _date);
-	v.setXY(10, 50);
+	v.setXY(10, 66);
 	NcursesTool::drawText(display, b, v, "Uptime: " + _uptime);
 	return true;
 }

@@ -28,9 +28,10 @@ name(name), module(modules)
 void ModulePager::initModule()
 {
 	std::vector<AMonitorModule *> modGeneral;
-	modGeneral.push_back(new TimeModule(0, 0, 100, 100));
+	modGeneral.push_back(new TimeModule(0, 0, 50, 50));
 	addPage("Informations generales", modGeneral);
 	std::vector<AMonitorModule *> modCPU;
+	modCPU.push_back(new CPUModule(0, 0, 100, 100));
 	addPage("Informations processeurs", modCPU);
 }
 
