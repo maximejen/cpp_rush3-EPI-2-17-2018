@@ -128,9 +128,3 @@ void CPUModule::getModel()
 	}
 }
 
-void CPUModule::event(int c)
-{
-	if (c == 'R')
-		this->randomColor = true;
-}
-
