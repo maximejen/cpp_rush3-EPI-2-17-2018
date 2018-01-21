@@ -9,10 +9,13 @@
 #include <iostream>
 #include <grp.h>
 #include <pwd.h>
+#include <ncurses/tool/NcursesTool.hpp>
+#include <sstream>
 #include "UserModule.hpp"
 
-UserModule::UserModule(int x, int y, int w, int h)
-: AMonitorModule("UserModule", x, y, w, h), _username(getlogin()), _uid(getuid())
+UserModule::UserModule(int x, int y, int w, int h) :
+AMonitorModule("UserModule", x, y, w, h), _username(getlogin()),
+_uid(getuid())
 {
 	int ngroups = 100;
 	gid_t groups[10];
@@ -78,8 +81,26 @@ const std::string &UserModule::getHostName() const
 
 bool UserModule::render(NcursesDisplay &display) const
 {
-	(void)display;
-	return false;
+	Box b = calcAbsSizeTerm(getBox());
+	NcursesTool::drawBox(display, b, "Utilisateur");
+	Vec v(10, 15);
+	NcursesTool::drawText(display, b, v, "Utilisateur courant : " +
+	_username + " ");
+	v.setY(30);
+	std::stringstream s;
+	s << _uid << "/" << _sid;
+	NcursesTool::drawText(display, b, v, "UID/SID : " +
+	s.str() + " ");
+	v.setY(45);
+	NcursesTool::drawText(display, b, v, "Dossier personnel : " +
+	_homePath + " ");
+	v.setY(60);
+	NcursesTool::drawText(display, b, v, "Shell par defaut : " +
+	_defaultShell + " ");
+	v.setY(75);
+	NcursesTool::drawText(display, b, v, "Nom d'hote : " +
+	_hostName + " ");
+	return true;
 }
 
 bool UserModule::render(GTKDisplay &display) const
@@ -88,7 +109,7 @@ bool UserModule::render(GTKDisplay &display) const
 	return false;
 }
 
-bool UserModule::getInfos()
+bool UserModule::setup()
 {
 	return true;
 }

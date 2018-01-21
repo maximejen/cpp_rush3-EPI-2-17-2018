@@ -50,6 +50,7 @@ public:
 		Histo &h);
 	static int calculateColor(size_t height);
 	static void drawBarElements(size_t, const Box &, Vec, size_t);
+	static void addSpecialBracket(int x, int y, bool end);
 
 private:
 	static void drawPointBox(NcursesDisplay const &disp,

@@ -22,6 +22,8 @@ public:
 	void clear(NcursesDisplay &display) const override;
 	void clear(GTKDisplay &display) const override;
 	bool setup() override;
+	void event(int c) override;
+
 private:
 	bool get_next_cpu(std::ifstream &, size_t index);
 	void getModel();

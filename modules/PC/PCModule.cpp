@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "ncurses/tool/NcursesTool.hpp"
 #include "PCModule.hpp"
 
 
@@ -39,10 +40,23 @@ const std::string &PCModule::getPCModel() const
 	return this->pcModel;
 }
 
-bool PCModule::render(NcursesDisplay &display) const
+bool PCModule::render(NcursesDisplay &d) const
 {
-	(void)display;
-	return false;
+	Box b = calcAbsSizeTerm(getBox());
+	NcursesTool::drawBox(d, b, "Ordinateur");
+	Vec v(20,10);
+	NcursesTool::drawText(d, b, v, "Nom : " + pcModel + " ");
+	v.setY(40);
+	NcursesTool::drawText(d, b, v, "Kernel : " + kernelVersion + " ");
+	v.setY(60);
+	try {
+		NcursesTool::drawText(d, b, v, "OS : " +
+		osInfos.at("NAME") + " ");
+		v.setY(80);
+		NcursesTool::drawText(d, b, v, "Version de l'OS : " +
+	osInfos.at("VERSION") + " ");
+	} catch (std::exception const &) { }
+	return true;
 }
 
 bool PCModule::render(GTKDisplay &display) const

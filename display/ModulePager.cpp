@@ -5,7 +5,9 @@
 ** ModulePager.cpp
 */
 
-#include <RAM/RAMModule.hpp>
+#include "user/UserModule.hpp"
+#include "RAM/RAMModule.hpp"
+#include "PC/PCModule.hpp"
 #include "time/TimeModule.hpp"
 #include "CPU/CPUModule.hpp"
 #include "ModulePager.hpp"
@@ -29,15 +31,14 @@ name(name), module(modules)
 void ModulePager::initModule()
 {
 	std::vector<AMonitorModule *> modGeneral;
-	modGeneral.push_back(new TimeModule(0, 0, 50, 50));
-	modGeneral.push_back(new RAMModule(0, 50, 100, 50));
+	modGeneral.push_back(new TimeModule(0, 0, 50, 40));
+	modGeneral.push_back(new PCModule(50, 0, 50, 50));
+	modGeneral.push_back(new UserModule(50, 50, 50, 50));
+	modGeneral.push_back(new RAMModule(0, 40, 50, 60));
 	addPage("Informations generales", modGeneral);
 	std::vector<AMonitorModule *> modCPU;
 	modCPU.push_back(new CPUModule(0, 0, 100, 100));
 	addPage("Informations processeurs", modCPU);
-//	std::vector<AMonitorModule *> modRAM;
-//	modRAM.push_back(new RAMModule(0, 0, 100, 100));
-//	addPage("Informations RAM", modRAM);
 }
 
 void ModulePager::inc()

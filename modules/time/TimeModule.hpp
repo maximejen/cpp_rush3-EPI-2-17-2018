@@ -23,6 +23,7 @@ public:
 	void clear(GTKDisplay &display) const override;
 	bool setup() override;
 	void event(int c) override;
+	bool isShow() const override;
 
 private:
 	const std::string uptimeFile;

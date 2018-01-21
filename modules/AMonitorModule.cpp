@@ -88,6 +88,16 @@ void AMonitorModule::event(int)
 {
 }
 
+void AMonitorModule::setBox(Box const &b)
+{
+	_box = b;
+}
+
+bool AMonitorModule::isShow() const
+{
+	return true;
+}
+
 Box::Box(size_t x, size_t y, size_t width, size_t heigth)
 : x(x), y(y), width(width), heigth(heigth)
 {
