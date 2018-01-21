@@ -59,8 +59,7 @@ size_t x, size_t y)
 	{std::pair<size_t, size_t>
 	 (b.getX(), b.getAbsoluteH() - 1),             ACS_LLCORNER},
 	{std::pair<size_t, size_t>
-	 (b.getAbsoluteW() - 1, b.getAbsoluteH() - 1), ACS_LRCORNER},
-	{std::pair<size_t, size_t>(13000, 13000), ' '}
+	 (b.getAbsoluteW() - 1, b.getAbsoluteH() - 1), ACS_LRCORNER}
 	};
 
 	std::pair<size_t, size_t> vec(x, y);
